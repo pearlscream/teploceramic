@@ -1,0 +1,674 @@
+
+
+.row, h3, h2, {
+  margin:0;
+ 
+}
+
+.navigation{
+     background: #016f00;
+     height:40px;
+     vertical-align:middle;
+}
+ 
+
+
+.bg{
+
+  background:url(img/third_line_bg.jpg) center -30px;
+  background-size:cover;
+}
+
+.bg2{ 
+  background: url(img/fourth_line_bg.jpg)no-repeat center top;
+  background-size:cover;
+}
+
+.bg3{
+    background: url(img/bg.jpg)no-repeat center  -665px;
+    background-size: cover;
+}
+
+.bg4{
+   background: url(img/blue_form.jpg) center;
+   background-size: cover;
+   height:600px;
+   padding-top: 11%;
+}
+
+
+.navigation ul li{
+    position:relative;
+    top:10px;
+    float:left;
+    margin-right:25px;
+    color:white;
+    vertical-align:middle;
+    font:14px/14px "PT Sans";
+    text-transform: uppercase;
+   
+}
+
+
+.logo img{  position: relative;
+  bottom: 11px;}
+
+
+
+
+
+
+
+
+/*------------------------------------------------icons----------------------------------------------*/
+.icon{
+    width:27px;
+    height:24px;
+    background: url(img/sprite.png) 3px 0px;
+    display:inline-block;
+}
+.icon2{
+    width:23px;
+    height:32px;
+    background: url(img/sprite.png) -24px 0px;
+    display:inline-block;
+    margin-right:4px;
+}
+
+.icon3{
+   width: 28px;
+  height: 29px;
+  background: url(img/sprite.png) -71px -3px;
+  display: inline-block;
+}
+
+.icon4{
+      width: 27px;
+  height: 28px;
+  background: url(img/sprite.png) -98px -2px;
+  display: inline-block;
+}
+
+.icon5{
+
+     width: 27px;
+     height: 26px;
+     background: url(img/sprite.png) -47px 0px;
+     display:inline-block;
+}
+
+.icon6{
+    width: 27px;
+    height: 29px;
+    background: url(img/sprite.png) -153px 0px;
+    display: inline-block;
+}
+.icon7{
+    width: 27px;
+    height: 28px;
+    background: url(img/sprite.png) -126px 0px;
+    display: inline-block;
+}
+
+.icon8{ 
+  width: 27px;
+  height: 24px;
+  background: url(img/sprite.png) -183px 0px;
+  display: inline-block;}
+
+.icon9{
+      width: 23px;
+      height: 32px;
+      background: url(img/sprite.png) -220px 0px;
+      display: inline-block;
+      margin-right: 4px;
+}
+
+.icon-blue-call{
+   width: 24px;
+  height: 28px;
+  background: url(img/sprite.png) -277px 1px;
+  display: inline-block;
+}
+
+.icon-blue-person{
+  width: 21px;
+  height: 26px;
+  background: url(img/sprite.png) -250px -1px;
+  display: inline-block;
+}
+
+.icon-blue-letter{
+  width: 25px;
+  height: 26px;
+  background: url(img/sprite.png) -305px 1px;
+  display: inline-block;
+  margin-right: 4px;
+}
+
+dd span{  margin-top: 7px;}
+dd{  float: left;width:35px;}
+dd,dt{  height: 45px;}
+
+
+
+
+.icon-cyan-person{
+  width: 21px;
+  height: 43px;
+  background: url(img/sprite.png) -250px 17px;
+  display: inline-block;
+}
+
+.icon-cyan-call{
+  width: 24px;
+  height: 44px;
+  background: url(img/sprite.png) -277px 19px;
+  display: inline-block;
+}
+
+.icon-cyan-letter{
+    width: 25px;
+  height: 38px;
+  background: url(img/sprite.png) -305px 18px;
+  display: inline-block;
+  margin-right: 4px;
+}
+
+ .icon7, .icon6, .icon5, .icon4, .icon3{
+  position: relative;
+  top: 8px;
+  right: 5px;
+}
+
+/*----------------------------------icons--------------------------------------------*/
+.with-icon{display: inline-block}
+
+.second-line{
+
+    height: 76px;
+    padding-top: 22px;
+}
+
+.third-line{
+
+    padding-top: 60px;
+    width:100%;
+    height: 500px;
+
+}
+
+
+
+.fifth-line{
+   padding:38px;
+  height:600px;
+   font:14px "PT Sans";
+}
+
+.sixth-line{
+
+}
+
+.seventh-line{
+
+  padding-top: 16px;
+
+  height:80px;
+}
+
+.footer{
+padding-top: 50px;
+height:500px;
+background:#537500;
+color:white;
+
+}
+/*---------------------------------------statment-blue----------------------------------------------*/
+
+.statment-blue{
+  background: url("img/cyan-form.jpg") center bottom;
+  min-height:700px;
+  background-size: cover;
+    padding-bottom: 55px;
+      padding-top: 35px;
+}
+
+.panel-default, .panel-group{
+  width:80%;
+text-align:center;
+  margin: 0 auto;
+}
+
+.statment-blue .panel-default > .panel-heading {
+  background-image: linear-gradient(to bottom, #46bffc 0%, #2da2dd 100%);
+} 
+.panel-group{margin:0 auto;}
+
+.panel{
+  padding-top: 20px;
+  background: transparent;
+    border:none;
+}
+.panel-body ul{padding:0;}
+.panel-body ul li{
+  font: 18px "PT Sans";
+  height: 35px;
+  line-height: 2;
+  width: 100%;
+}
+
+
+.panel-body ul li:nth-child(2n+1){
+background: white;
+
+}
+
+.statment-blue h3{
+  font: 24px "PT Sans";
+  color:#0b6b9e;
+  text-align:center;
+}
+
+.statment-blue .red-button{
+   width:240px;
+   height:35px;
+   background-image: linear-gradient(to bottom, #f64d2b 0%, #871701 100%);
+   text-align: center;
+   line-height: 2;
+   margin:0 auto;
+   margin-top: 30px;
+
+}
+
+.statment-blue .panel-title{
+  text-align: left;
+  color: white;
+  text-transform: uppercase;
+   font: 18px "PT Sans";
+}
+
+.panel-title span{
+   text-align:right;
+   font: 12px "PT Sans";
+   float:right;
+
+}
+/*----------------------------------------------second-line----------------------------------------*/
+
+.name{
+      margin-top: 15px;
+  width: 203px;
+  height: 29px;
+  border: #3fb7f3;
+  padding-left: 8px;
+}
+
+.description h2{
+    color:#0b6b9e;
+    font:24px/24px "PT Sans";
+}
+
+.form{
+    text-align: left;
+    color: #33a9e4;
+    padding: 25px;
+    height: 86%;
+    width: 24%;
+    font:14px/14px "PT Sans";
+    background: rgba(237,244,17,0.5);
+    text-align:center;
+}
+
+hr{
+     border:#3fb7f3 1px solid;
+     margin-top: 31px;
+     margin-bottom: 13px;
+}
+
+/*--------------------------------------------fourth_line--------------------------------------------------*/
+.fourth-line{
+ height:155px;   
+padding-top:8px;
+}
+
+.fourth-line .col-md-3{
+  border-right: 1px solid #87af00;
+  height: 110px;
+}
+
+
+.illustration{
+    width:25%;
+   float:left;
+   position:relative;
+   left:25px;
+   top:40px;
+}
+
+.action{
+     font:16px/16px "PT Sans";
+     width:70%;
+     float:right}
+
+.action h3{
+    color:white;
+    margin-top: 25px;
+}
+
+.button{
+  position: relative;
+  top: 15px;
+  width: 184px;
+  height: 30px;
+  background-image: linear-gradient(to bottom, #47c0fd 0%, #218abf 100%);
+  border-radius: 2px;
+  text-align: center;
+  color: white;
+  left: 24%;
+  font: 13px "PT Sans";
+}
+
+.button2{
+  background:#003d68;
+  width: 100px;
+  height: 30px;
+  text-align: center;
+  position: relative;
+  top: 12px;
+}
+
+a, a:hover{
+  color:white;
+  text-decoration: none;
+  border:none;
+}
+a:visited{text-decoration: none}
+.center{ 
+ position: relative;
+  top: 21%;
+}
+
+
+.fifth-line h1{color:#0b6b9e;}
+
+/*---------------------------------action----------------------------------*/
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+  background: transparent;
+  border: none;
+}
+
+.nav-tabs>li {float:none;}
+
+.nav>li>a:focus, .nav>li>a:hover {
+  background: transparent;
+  border: none;
+}
+
+  .nav-tabs li{
+    font-size:0px;
+  }
+
+  .nav-tabs {border:none;}
+
+  .nav>li>a{display: inline;}
+/*
+
+.nav-tabs, .nav-tabs>li.active>a,  .nav-tabs>li.active>a:hover, .nav-tabs>li>a, .nav>li>a:focus, .nav>li>a:active  {border:none;}
+.nav-tabs>li.active>a, .nav-tabs>li>a {
+      color:#95c22a;
+     font:12px "PT Sans";
+}
+
+.nav>li>a:hover, .nav>li>a:active, .nav>li>a:focus{background: white;}*/
+
+
+/*-------------------------------------partners-----------------------------------------*/
+
+
+.partners{
+  height:160px;
+  background: url(img/groups_bg.png) 
+}
+
+.pertners .col-md-2{
+  font: 20px "PT Sans";
+  color:#c3c3c3;
+}
+
+
+
+/*-----------------------------------------green-panel-------------------------------------------*/
+
+.green-panel{
+    min-height:140px;
+    background: url(img/BG2.jpg);
+    background-size:cover;
+}
+
+.green-panel .panel{
+    padding-top: 50px;
+}
+
+.green-panel .panel-group, .green-panel .panel-heading{
+    background:transparent;
+}
+
+.point{
+  width: 24px;
+  height: 18px;
+  background: url(img/sprite.png) -1028px 0px;
+  display: inline-block;
+}
+
+.three-douts{
+    width: 23px;
+  height: 9px;
+  background: url(img/sprite.png) -44px -39px;
+  display: inline-block;
+}
+
+/*------------------------question-----------------------------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.seventh-line h3{
+  font:20px/20px "PT Sans";
+   color:white;
+   text-transform: uppercase;
+}
+
+.telephone-footer{
+    font:24px "PT Sans";
+    margin-bottom: 70px;
+}
+
+.hours-footer{
+     margin-bottom: 70px;
+       font:20px "PT Sans";
+}
+
+.hours-footer span{color:#95c22a; font:24px "PT Sans";}
+.address{
+    color:#95c22a;
+     font:12px "PT Sans";
+}
+
+.address span{
+  color:white;
+  font:12px "PT Sans";
+  margin-top:25px;
+  position:relative;
+  top:20px;
+}
+
+ /*-----------------blue-form------------------*/
+
+.blue-form{
+  height:240px;
+  background: url('img/bg_form.jpg');
+  background-size: cover;
+  color:white;
+  font:14px "PT Sans";
+  padding-top:30px;
+
+}
+
+.blue-form dd span{   margin-top: 19px;}
+
+.bg4 h4{
+  color:#064d73;
+  text-align: center;
+}
+
+.bg4{
+   background: url(img/blue_form.jpg) center;
+   background-size: cover;
+   height:600px;
+   padding-top: 11%;
+}
+
+.first-you{
+  border-right:solid 1px #1d8ac3 ;
+  padding-left:15px;
+}
+
+
+
+/*--------------------cyan-form----------------------*/
+.cyan-form .big{
+width:340px;
+height:280px;
+}
+
+.sixth-line{
+    color:#33a9e4;
+    font:14px "PT Sans";
+}
+
+.button_cyan_form{
+  background: #003d68;
+  width: 100px;
+  height: 30px;
+  text-align: center;
+  position: relative;
+  left: 39.3%;
+  margin-top: 8%;
+    line-height: 2;
+}
+
+.cyan-form dd span{margin-top:16px;}
+
+
+
+
+@media screen and (min-width:360px) and (max-width:680px){
+
+
+.second-line, .third-line, .fourth-line, .blue-form, .seventh-line, .cyan-form{
+  height:auto;
+
+}
+
+.row{padding-bottom:20px;}
+
+ .col-sm-12{
+  text-align:center;
+  min-height:20px;
+
+  padding-bottom: 10px;
+}
+
+.form{
+  width:80%;
+  margin:0 auto;
+}
+
+.bg{
+  background:url(img/third_line_bg.jpg) center ;
+  background-size:auto;
+}
+
+.bg3{background:#136794
+}
+.blue-form .col-md-1{
+  height:1px;
+}
+
+.cyan-form .big {
+    width: 80%;
+}
+
+
+.second-line .main-telephone{
+ 
+   font:14px/14px "PT Sans"
+}
+.second-line .hours{display:none;}
+
+
+
+.second-line .logo{
+  width:50%;
+  float:left;
+}
+
+
+.button{
+   position: relative;
+  top: 9px;
+  width: 200px;
+  height: 30px;
+  background: #3fb7f3;
+  border-radius: 2px;
+  text-align: center;
+  color: white;
+  left: 10%;
+  font: 13px "PT Sans";}
+
+.bg2{display:none;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

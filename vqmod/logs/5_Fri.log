@@ -1,0 +1,15 @@
+---------- Date: 2015-07-17 07:43:20 ~ IP : 213.160.157.98 ----------
+REQUEST URI : /admin/index.php?route=setting/store&token=779668239024100d446146154032ad3b
+MOD DETAILS:
+   modFile   : /var/www/teploceramic/teploceramic.pro/vqmod/xml/enhanced_vqmod_manager-v1.0.xml
+   id        : Enhanced VQMod Manager and Editor
+   version   : 1.0
+   vqmver    : 2.5.1
+   author    : <span style="color:#333; font-weight:bold;">Mike Francis - SBWD</span><br /><a href="http://www.opencart.com/index.php?route=extension/extension&filter_username=mike420" target="_blank">More Extensions <i class="fa fa-external-link"></i></a>
+
+File Name    : admin/language/*/common/menu.php(0)
+VQModObject::applyMod - SEARCH NOT FOUND (SKIPPED): $_['text_paypal_search']               = 'Search';
+
+----------------------------------------------------------------------
+
+

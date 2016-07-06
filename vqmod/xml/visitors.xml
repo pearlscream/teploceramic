@@ -1,0 +1,148 @@
+<modification>
+	<id>Visitors</id>
+	<version>1.0 OC 2.x</version>
+	<vqmver>2.5.1</vqmver>
+	<author>Ivan Kolomiiets IC-Group</author>
+
+	<file name="admin/controller/common/dashboard.php">
+		<operation error="skip">
+			<search position="replace"><![CDATA[
+				$data['online'] = $this->load->controller('dashboard/online');
+			]]></search>
+			<add><![CDATA[
+				$data['online'] = $this->load->controller('module/visitors/view');]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/dashboard/chart.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[
+				colors: ['#9FD5F1', '#1065D2'],
+			]]></search>
+			<add><![CDATA[
+				colors: ['#9FD5F1', '#1065D2', '#00ff00', '#ff0000'],]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" offset="4"><![CDATA[
+				bars: {
+			]]></search>
+			<add><![CDATA[
+				lines: { show: true, fill: false },]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" offset="1"><![CDATA[
+				points: {
+			]]></search>
+			<add><![CDATA[
+				points: {
+					show: true]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[
+				$('<div id="tooltip" class="tooltip top in"><div class="tooltip-arrow"></div><div class="tooltip-inner">' + item.datapoint[1].toFixed(2) + '</div></div>').prependTo('body');
+			]]></search>
+			<add><![CDATA[
+				$('<div id="tooltip" class="tooltip top in"><div class="tooltip-arrow"></div><div class="tooltip-inner">'+item.series.label+ ' ' + item.datapoint[1].toFixed(2) + '</div></div>').prependTo('body');]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[
+				$.plot('#chart-sale', [json['order'], json['customer']], option);
+			]]></search>
+			<add><![CDATA[
+				$.plot('#chart-sale', [json['visits'], json['visitors'], json['customer'], json['order']], option);]]></add>
+		</operation>
+	</file>
+	<file name="admin/controller/dashboard/chart.php">
+		<operation error="skip">
+			<search position="after"><![CDATA[
+				$json['xaxis'] = array();
+			]]></search>
+			<add><![CDATA[
+		$json['visits'] = array();
+		$json['visitors'] = array();
+		$json['visits']['label'] = $this->language->get('text_visits');
+		$json['visitors']['label'] = $this->language->get('text_visitors');
+		$json['visits']['data'] = array();
+		$json['visitors']['data'] = array();]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[
+				$this->load->model('report/customer');
+			]]></search>
+			<add><![CDATA[
+		$this->load->model('extension/visitors');
+		$this->load->language('module/visitors');]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[
+				$results = $this->model_report_sale->getTotalOrdersByDay();
+			]]></search>
+			<add><![CDATA[
+				$vis = $this->model_extension_visitors->getTotalVisitorsByDay();
+
+				foreach ($vis as $key => $value) {
+					$json['visitors']['data'][] = array($key, $value['total']);
+				}
+
+				$vis = $this->model_extension_visitors->getTotalVisitsByDay();
+
+				foreach ($vis as $key => $value) {
+					$json['visits']['data'][] = array($key, $value['total']);
+				}
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[
+				$results = $this->model_report_sale->getTotalOrdersByWeek();
+			]]></search>
+			<add><![CDATA[
+				$vis = $this->model_extension_visitors->getTotalVisitorsByWeek();
+
+				foreach ($vis as $key => $value) {
+					$json['visitors']['data'][] = array($key, $value['total']);
+				}
+
+				$vis = $this->model_extension_visitors->getTotalVisitsByWeek();
+
+				foreach ($vis as $key => $value) {
+					$json['visits']['data'][] = array($key, $value['total']);
+				}
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[
+				$results = $this->model_report_sale->getTotalOrdersByMonth();
+			]]></search>
+			<add><![CDATA[
+				$vis = $this->model_extension_visitors->getTotalVisitorsByMonth();
+
+				foreach ($vis as $key => $value) {
+					$json['visitors']['data'][] = array($key, $value['total']);
+				}
+
+				$vis = $this->model_extension_visitors->getTotalVisitsByMonth();
+
+				foreach ($vis as $key => $value) {
+					$json['visits']['data'][] = array($key, $value['total']);
+				}
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[
+				$results = $this->model_report_sale->getTotalOrdersByYear();
+			]]></search>
+			<add><![CDATA[
+				$vis = $this->model_extension_visitors->getTotalVisitorsByYear();
+
+				foreach ($vis as $key => $value) {
+					$json['visitors']['data'][] = array($key, $value['total']);
+				}
+
+				$vis = $this->model_extension_visitors->getTotalVisitsByYear();
+
+				foreach ($vis as $key => $value) {
+					$json['visits']['data'][] = array($key, $value['total']);
+				}
+			]]></add>
+		</operation>
+	</file>
+</modification>

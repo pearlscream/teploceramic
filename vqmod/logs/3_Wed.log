@@ -1,0 +1,30 @@
+---------- Date: 2015-05-13 11:53:35 ~ IP : 127.0.0.1 ----------
+REQUEST URI : /admin/index.php?route=common/dashboard&token=81f4054c558bc0e9464d9876dda98a1a
+MOD DETAILS:
+   modFile   : C:\OpenServer\domains\tekko\vqmod/xml/enhanced_vqmod_manager-v1.0.xml
+   id        : Enhanced VQMod Manager and Editor
+   version   : 1.0
+   vqmver    : 2.5.1
+   author    : <span style="color:#333; font-weight:bold;">Mike Francis - SBWD</span><br /><a href="http://www.opencart.com/index.php?route=extension/extension&filter_username=mike420" target="_blank">More Extensions <i class="fa fa-external-link"></i></a>
+
+File Name    : admin/language/*/common/menu.php(0)
+VQModObject::applyMod - SEARCH NOT FOUND (SKIPPED): $_['text_paypal_search']               = 'Search';
+
+----------------------------------------------------------------------
+
+
+---------- Date: 2015-05-13 16:24:44 ~ IP : 127.0.0.1 ----------
+REQUEST URI : /admin/index.php?route=common/dashboard&token=e2acfbc8046a7574fa47fa62fd526b31
+MOD DETAILS:
+   modFile   : C:\OpenServer\domains\teploceramic\vqmod/xml/enhanced_vqmod_manager-v1.0.xml
+   id        : Enhanced VQMod Manager and Editor
+   version   : 1.0
+   vqmver    : 2.5.1
+   author    : <span style="color:#333; font-weight:bold;">Mike Francis - SBWD</span><br /><a href="http://www.opencart.com/index.php?route=extension/extension&filter_username=mike420" target="_blank">More Extensions <i class="fa fa-external-link"></i></a>
+
+File Name    : admin/language/*/common/menu.php(0)
+VQModObject::applyMod - SEARCH NOT FOUND (SKIPPED): $_['text_paypal_search']               = 'Search';
+
+----------------------------------------------------------------------
+
+

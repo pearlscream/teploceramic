@@ -1,0 +1,64 @@
+html, body, .ink-container{
+	height: 100%;
+}
+header{
+	padding-top: 4px;
+}
+.js::before, .canvas::before, .html::before{
+	content: '';
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	background: no-repeat;
+	background-size: 25px;
+	/*float: left;/**/
+	margin: 7px 4px -7px 0;
+
+}
+
+
+.js::before{
+	background-image: url("../img/WPD-JS-32px.png");
+}
+.canvas::before{
+	background-image: url("../img/WPD-Beginners-32px.png");
+}
+.html::before{
+	background-image: url("../img/WPD-HTML-B-32px.png");
+}
+.ink-l50, .ink-l50 .block{
+	height: 90%;
+
+}
+#editor{
+	height: 100%;
+	min-height: 500px;
+	
+}
+iframe, .CodeMirror{
+	border-radius: 4px;
+	/*padding: 6px;/**/
+	border: 1px solid #dddddd;
+	resize: none;
+	font-size: 14px;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	    -ms-box-sizing: border-box;
+	        box-sizing: border-box;
+	background: #ffffff;
+	height: 502px;
+	min-height: 500px;
+	width: 100%;
+}
+.CodeMirror, .CodeMirror-scroll, .CodeMirror-scrollbar{
+	height: 100%;
+	min-height: 500px;
+}
+div.icon-warning-sign{
+	background: #D33535;
+	font-size: 80%;
+	line-height: 1.2em;
+}
+.icon-warning-sign::before { 
+	margin: 0 30px 0 10px;
+}

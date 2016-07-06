@@ -1,0 +1,137 @@
+<modification>
+	<id>IC-fixes</id>
+	<version>1.0 OC 2.x</version>
+	<vqmver>2.5.1</vqmver>
+	<author>Ivan Kolomiiets IC-Group</author>
+
+	<file name="admin/view/template/design/layout_form.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[
+				<option value="<?php echo $extension['code']; ?>" selected="selected"><?php echo $extension['name']; ?></option>
+			]]></search>
+			<add><![CDATA[
+				<option value="<?php echo $extension['code']; ?>" selected="selected"><?php echo strip_tags($extension['name']); ?></option>
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[
+				<option value="<?php echo $extension['code']; ?>"><?php echo $extension['name']; ?></option>
+			]]></search>
+			<add><![CDATA[
+				<option value="<?php echo $extension['code']; ?>"><?php echo strip_tags($extension['name']); ?></option>
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[
+				<optgroup label="<?php echo $extension['name']; ?>">
+			]]></search>
+			<add><![CDATA[
+				<optgroup label="<?php echo strip_tags($extension['name']); ?>">
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[
+				html += '    <option value="<?php echo $extension['code']; ?>"><?php echo addslashes($extension['name']); ?></option>';
+			]]></search>
+			<add><![CDATA[
+				html += '    <option value="<?php echo $extension['code']; ?>"><?php echo addslashes(strip_tags($extension['name'])); ?></option>';
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[
+				html += '    <optgroup label="<?php echo addslashes($extension['name']); ?>">';
+			]]></search>
+			<add><![CDATA[
+				html += '    <optgroup label="<?php echo addslashes(strip_tags($extension['name'])); ?>">';
+			]]></add>
+		</operation>
+	</file>
+
+	<file name="system/library/session.php">
+		<operation error="skip">
+			<search position="after"><![CDATA[
+				ini_set('session.cookie_httponly', 'On');
+			]]></search>
+			<add><![CDATA[
+				ini_set('session.gc_maxlifetime', '86400');
+				ini_set('session.cookie_lifetime', '86400');
+				ini_set('session.cache_expire', '180');]]></add>
+		</operation>
+	</file>
+
+	<file name="admin/view/template/common/header.tpl">
+		<operation error="skip">
+			<search position="before"><![CDATA[<body>]]></search>
+			<add><![CDATA[
+<style>
+/* some additional fix */
+ .page-header .pull-right{
+	position: fixed;
+	right: 20px;
+	z-index: 100;
+	background: rgba(242, 231, 231, 0.67);
+	padding: 5px;
+	border-radius: 4px;
+}
+</style>]]></add>
+		</operation>
+	</file>
+
+	<!-- from Module Manager Compact list -->
+	<file name="admin/view/template/extension/module.tpl">
+		<operation>
+			<search position="before"><![CDATA[<?php if ($extensions) { ?>]]></search>
+			<add><![CDATA[<?php $module_row = 0; ?>]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[<td><?php echo $extension['name']; ?></td>]]></search>
+			<add><![CDATA[
+                      <?php $module_row++; ?>
+                      <td>
+                      <?php if ($extension['installed']) { ?>
+                        <?php if ($extension['module']) { ?> 
+                            <a class="expand-modules expand<?php echo $module_row; ?>" onclick="expand_modules('<?php echo $module_row; ?>');"><i class="fa fa-plus-square"></i></a>
+                        <?php } ?>
+                      <?php } ?>
+                      <?php echo $extension['name']; ?></td>
+]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[<td class="text-left"><?php echo $module['name']; ?></td>]]></search>
+			<add><![CDATA[
+		<td class="text-left module-instance mi<?php echo $module_row; ?>"><?php echo $module['name']; ?></td>
+		]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[<td class="text-right"><a onclick="confirm('<?php echo $text_confirm; ?>') ? location.href='<?php echo $module['delete']; ?>' : false;" data-toggle="tooltip" title="<?php echo $button_delete; ?>" class="btn btn-danger"><i class="fa fa-trash-o"></i></a> <a href="<?php echo $module['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>]]></search>
+			<add><![CDATA[
+		<td class="text-right module-instance mi<?php echo $module_row; ?>"><a onclick="confirm('<?php echo $text_confirm; ?>') ? location.href='<?php echo $module['delete']; ?>' : false;" data-toggle="tooltip" title="<?php echo $button_delete; ?>" class="btn btn-danger"><i class="fa fa-trash-o"></i></a> <a href="<?php echo $module['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
+		]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[<?php echo $footer; ?>]]></search>
+			<add><![CDATA[
+<script type="text/javascript">
+function expand_modules(module_row) {
+    if ($(".module-instance.mi"+module_row).hasClass('visible')) {
+        $(".module-instance.mi"+module_row).slideUp('fast');
+        $(".module-instance.mi"+module_row).removeClass('visible');
+        $(".expand"+module_row).html('<i class="fa fa-plus-square"></i>');
+    } else {
+        $(".module-instance.mi"+module_row).slideDown('fast');
+        $(".module-instance.mi"+module_row).addClass('visible');
+        $(".expand"+module_row).html('<i class="fa fa-minus-square"></i>');
+    }
+}
+</script>
+<style type="text/css">
+.module-instance { display: none; }
+.module-instance.visible { background: #eee; }
+.module-instance.visible.text-left { padding-left: 20px; }
+.expand-modules { cursor: pointer; }
+</style>
+		]]></add>
+		</operation>
+	</file>
+
+</modification>

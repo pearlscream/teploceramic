@@ -1,0 +1,121 @@
+<modification>
+	<id>Forms</id>
+	<version>1.0 OC 2.x</version>
+	<vqmver>2.5.1</vqmver>
+	<author>Ivan Kolomiiets IC-Group</author>
+
+	<file name="admin/controller/common/dashboard.php">
+		<operation error="skip">
+			<search position="replace"><![CDATA[
+				$data['activity'] = $this->load->controller('dashboard/activity');
+			]]></search>
+			<add><![CDATA[
+				if($this->config->get('forms_status')){
+					$data['forms'] = true;
+					$data['activity'] = $this->load->controller('module/forms/view');
+				}else{
+					$data['forms'] = false;
+					$data['activity'] = $this->load->controller('dashboard/activity');
+				}]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/common/dashboard.tpl">
+		<operation error="skip">
+			<search position="replace" offset="3"><![CDATA[
+				<div class="col-lg-4 col-md-12 col-sm-12 col-sx-12"><?php echo $activity; ?></div>
+			]]></search>
+			<add><![CDATA[
+				<?php if($forms){ ?>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-sx-12"><?php echo $activity; ?></div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-sx-12"><?php echo $recent; ?></div>
+				<?php }else{ ?>
+					<div class="col-lg-4 col-md-12 col-sm-12 col-sx-12"><?php echo $activity; ?></div>
+					<div class="col-lg-8 col-md-12 col-sm-12 col-sx-12"><?php echo $recent; ?></div>
+				<?php } ?>
+					]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" offset="1"><![CDATA[
+				<div class="col-lg-6 col-md-12 col-sx-12 col-sm-12"><?php echo $map; ?></div>
+			]]></search>
+			<add><![CDATA[
+				<div class="col-lg-12 col-md-12 col-sx-12 col-sm-12"><?php echo $chart; ?></div>
+					]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" offset="3"><![CDATA[
+				<div class="col-lg-3 col-md-3 col-sm-6"><?php echo $order; ?></div>
+			]]></search>
+			<add><![CDATA[
+				<div class="col-lg-3 col-md-3 col-sm-6"><?php echo $online; ?></div>
+				<div class="col-lg-3 col-md-3 col-sm-6"><?php echo $customer; ?></div>
+				<div class="col-lg-3 col-md-3 col-sm-6"><?php echo $order; ?></div>
+				<div class="col-lg-3 col-md-3 col-sm-6"><?php echo $sale; ?></div>
+					]]></add>
+		</operation>
+	</file>
+	<file name="admin/controller/sale/order.php">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[
+				$data['order_id'] = 0;
+			]]></search>
+			<add><![CDATA[
+		} elseif($this->request->server['REQUEST_METHOD'] == 'POST') {
+			$data['order_id'] = 0;
+			$data['store_id'] = '';
+			$data['customer'] = '';
+			$data['customer_id'] = $this->request->post['customer_id'];
+			$data['customer_group_id'] = $this->request->post['customer_group_id'];
+			$data['firstname'] = $this->request->post['firstname'];
+			$data['lastname'] = $this->request->post['lastname'];
+			$data['email'] = $this->request->post['email'];
+			$data['telephone'] = $this->request->post['telephone'];
+			$data['fax'] = '';
+			$data['customer_custom_field'] = array();
+
+			$data['addresses'] = array();
+
+			$data['payment_firstname'] = $this->request->post['firstname'];
+			$data['payment_lastname'] = $this->request->post['lastname'];
+			$data['payment_company'] = '';
+			$data['payment_address_1'] = '';
+			$data['payment_address_2'] = '';
+			$data['payment_city'] = '';
+			$data['payment_postcode'] = '';
+			$data['payment_country_id'] = $this->config->get('config_country_id');
+			$data['payment_zone_id'] = $this->config->get('config_zone_id');
+			$data['payment_custom_field'] = array();
+			$data['payment_method'] = '';
+			$data['payment_code'] = '';
+
+			$data['shipping_firstname'] = $this->request->post['firstname'];
+			$data['shipping_lastname'] = $this->request->post['lastname'];
+			$data['shipping_company'] = '';
+			$data['shipping_address_1'] = '';
+			$data['shipping_address_2'] = '';
+			$data['shipping_city'] = '';
+			$data['shipping_postcode'] = '';
+			$data['shipping_country_id'] = $this->config->get('config_country_id');
+			$data['shipping_zone_id'] = $this->config->get('config_zone_id');
+			$data['shipping_custom_field'] = array();
+			$data['shipping_method'] = '';
+			$data['shipping_code'] = '';
+
+			$data['order_products'] = array();
+			$data['order_vouchers'] = array();
+			$data['order_totals'] = array();
+
+			$data['order_status_id'] = $this->config->get('config_order_status_id');
+
+			$data['comment'] = '';
+			$data['affiliate_id'] = '';
+			$data['affiliate'] = '';
+
+			$data['coupon'] = '';
+			$data['voucher'] = '';
+			$data['reward'] = '';
+					]]></add>
+		</operation>
+	</file>
+
+</modification>
