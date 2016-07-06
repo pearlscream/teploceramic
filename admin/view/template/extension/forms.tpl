@@ -11,7 +11,12 @@
         </div>
     </div>
     <div class="container-fluid">
-        <input type="datetime-local" id="data-filter">
+        <div class="filters">
+            <input type="datetime-local" id="data-filter">
+            <a href="<?php echo $url . '&filter=week'?>" class="week-button">Неделя</a>
+            <a href="<?php echo $url . '&filter=month'?>" class="month-button">Месяц</a>
+            <a href="<?php echo $url . '&filter=year'?>" class="year-button">Год</a>
+        </div>
         <?php if ($error_warning) { ?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
             <button type="button" class="close" data-dismiss="alert">&times;</button>

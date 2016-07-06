@@ -646,7 +646,9 @@ var date = new Date();
 var curr_date = date.getDate();
 var curr_month = date.getMonth() + 1;
 var curr_year = date.getFullYear();
-date = curr_year + "-" + curr_month + "-" + curr_date;
+var curr_hours = date.getHours();
+var curr_minutes = date.getMinutes();
+date = curr_year + "-" + curr_month + "-" + curr_date + " " + curr_hours + ":" + curr_minutes;
 
 function send_form_from_main(formname){
         ga('send', 'event', 'button', 'click', $('#'+formname).find('input[name="form_id"]').val());

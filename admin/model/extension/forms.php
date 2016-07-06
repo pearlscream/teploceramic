@@ -1,7 +1,21 @@
 <?php
 class ModelExtensionForms extends Model {
-	public function getData($limit) {
+	public function getData($limit,$filter) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "forms_data` ORDER BY `data_id` DESC LIMIT ".(int)$limit['start']." , ".(int)$limit['end']);
+
+		if ($filter == 'month') {
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "forms_data` WHERE date_format(date, '%Y%m') = date_format(now(), '%Y%m') ORDER BY `data_id` DESC LIMIT " . (int)$limit['start'] . " , " . (int)$limit['end']);
+		}
+
+		if ($filter == 'year') {
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "forms_data` WHERE date_format(date, '%Y') = date_format(now(), '%Y') ORDER BY `data_id` DESC LIMIT " . (int)$limit['start'] . " , " . (int)$limit['end']);
+		}
+
+		if ($filter == 'week') {
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "forms_data` where year(date) = year(now()) and week(date, 1) = week(now(), 1) ORDER BY `data_id` DESC LIMIT " . (int)$limit['start'] . " , " . (int)$limit['end']);
+		}
+//		$query = $this->db->query("select * from `la_forms_data` where date_format(date, '%Y%m') = date_format(now(), '%Y%m')");
+
 
 		$data = array();
 		foreach ($query->rows as $row) {
@@ -21,8 +35,21 @@ class ModelExtensionForms extends Model {
 // print_r(unserialize($row['comments']));
 		return $data;
 	}
-	public function getTotalData() {
-		$query = $this->db->query("SELECT count(*) as total FROM `" . DB_PREFIX . "forms_data`");
+	public function getTotalData($filter) {
+		$query = $this->db->query("SELECT count(*) as total FROM `" . DB_PREFIX . "forms_data` ");
+
+		if ($filter == 'month') {
+			$query = $this->db->query("SELECT count(*) as total FROM `" . DB_PREFIX . "forms_data` WHERE date_format(date, '%Y%m') = date_format(now(), '%Y%m'");
+		}
+
+		if ($filter == 'year') {
+			$query = $this->db->query("SELECT count(*) as total FROM `" . DB_PREFIX . "forms_data` WHERE date_format(date, '%Y') = date_format(now(), '%Y'");
+		}
+		if ($filter == 'week') {
+			$query = $this->db->query("SELECT count(*) as total FROM `" . DB_PREFIX . "forms_data` where year(date) = year(now()) and week(date, 1) = week(now(), 1)");
+		}
+
+
 
 		return $query->row['total'];
 	}

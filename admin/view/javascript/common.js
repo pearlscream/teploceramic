@@ -205,6 +205,7 @@ $(document).ready(function() {
 	$('[data-toggle=\'tooltip\']').on('remove', function() {
 		$(this).tooltip('destroy');
 	});	
+	
 });
 
 // Autocomplete */
