@@ -106,13 +106,16 @@ class ControllerModuleForms extends Controller {
 		$this->response->setOutput($this->load->view('module/forms.tpl', $data));
 	}
 
-	public function view(){
+	public function view() {
 		$this->load->language('module/forms');
 
 		$this->document->setTitle(strip_tags($this->language->get('heading_title')));
 
 		$this->load->model('extension/forms');
 
+		$data['url'] = $this->url->link('extension/forms', 'token=' . $this->session->data['token'], 'SSL');
+		$data['token'] = $this->session->data['token'];
+		$data['route'] = "extension/forms";
 		$data['statuses'] = $this->config->get('forms');
 		$data['lang'] = $this->config->get('config_language_id');
 

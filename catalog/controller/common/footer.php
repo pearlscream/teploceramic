@@ -32,7 +32,7 @@ class ControllerCommonFooter extends Controller {
 //		}
 //
 //				//categories product
-//        
+//
 //		$this->load->model('catalog/category');
 //
 //		$this->load->model('catalog/product');

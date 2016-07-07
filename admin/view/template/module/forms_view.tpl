@@ -8,6 +8,12 @@
     <h3 class="panel-title"><i class="fa fa-eye"></i> <?php echo $text_edit; ?></h3> <span class="pull-right"><a href="<?php echo $link_forms; ?>"><?php echo $text_all; ?></a></span>
   </div>
   <div class="table-responsive">
+    <div class="filters">
+      <input type="datetime-local" class="date-filter">
+      <a href="<?php echo $url . '&filter=week'?>" class="week-button">Неделя</a>
+      <a href="<?php echo $url . '&filter=month'?>" class="month-button">Месяц</a>
+      <a href="<?php echo $url . '&filter=year'?>" class="year-button">Год</a>
+    </div>
     <table class="table">
       <thead>
         <tr>
@@ -15,6 +21,7 @@
           <td><?php echo $text_name; ?></td>
           <td><?php echo $text_email; ?></td>
           <td><?php echo $text_telephone; ?></td>
+          <td>Дата</td>
           <td class="text-center"><?php echo $text_status; ?></td>
           <td class="text-center"><?php echo $text_add; ?></td>
           <td class="text-center"><?php echo $text_comments; ?></td>
@@ -29,6 +36,7 @@
           <td><?php echo $lead['name']; ?></td>
           <td><a href="mailto:<?php echo $lead['email']; ?>"><?php echo $lead['email']; ?></a></td>
           <td><a href="tel:<?php echo $lead['telephone']; ?>"><?php echo $lead['telephone']; ?></a></td>
+          <td><?php echo $lead['date']; ?></td>
           <td class="text-center status"><span class="label" data-status="<?php echo $lead['status_id']; ?>" style="background: <?php echo $statuses[$lead['status_id']]['bg']; ?>; color: <?php echo $statuses[$lead['status_id']]['color']; ?>;"><?php echo $statuses[$lead['status_id']]['title'][$lang]; ?></span></td>
           <td>
             <?php if ($lead['add']){ ?>

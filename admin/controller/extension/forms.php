@@ -64,6 +64,9 @@ class ControllerExtensionForms extends Controller {
 		$data['breadcrumbs'] = array();
 
 		$data['url'] = $this->url->link('extension/forms', 'token=' . $this->session->data['token'], 'SSL');
+		$data['route'] = 'extension/forms';
+		$date = date("Y-m-d H:i:s",strtotime($this->request->get['date']));
+		$data['test'] = date("Y-m-d H:i:s",strtotime($this->request->get['date']));
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], 'SSL')
@@ -94,8 +97,8 @@ class ControllerExtensionForms extends Controller {
 			);
 
 		$filter = $this->request->get['filter'];
-		$data['leads'] = $this->model_extension_forms->getData($limit,$filter);
-		$data_total = $this->model_extension_forms->getTotalData($filter);
+		$data['leads'] = $this->model_extension_forms->getData($limit,$filter,$date);
+		$data_total = $this->model_extension_forms->getTotalData($filter,$date);
 
 		$data['add'] = $this->url->link('sale/order/add', 'token=' . $this->session->data['token'], 'SSL');
 		$data['forms_users'] = $this->config->get('forms_user');

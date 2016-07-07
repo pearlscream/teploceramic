@@ -12,7 +12,17 @@
     </div>
     <div class="container-fluid">
         <div class="filters">
-            <input type="datetime-local" id="data-filter">
+            <form action="<?php echo $url ?>" method="get">
+                <input type="hidden" name="route" value="<?php echo $route ?>">
+                <input type="hidden" name="token" value="<?php echo $token?>">
+                <input type="datetime-local" id="date-filter" name="date" value="<?php echo date('Y-m-d\TG:i:s')?>">
+                <input type="submit" value="Фильтр">
+            </form>
+            <form action="<?php echo $url ?>" method="get">
+                <input type="hidden" name="route" value="<?php echo $route ?>">
+                <input type="hidden" name="token" value="<?php echo $token?>">
+                <input type="submit" value="Все">
+            </form>
             <a href="<?php echo $url . '&filter=week'?>" class="week-button">Неделя</a>
             <a href="<?php echo $url . '&filter=month'?>" class="month-button">Месяц</a>
             <a href="<?php echo $url . '&filter=year'?>" class="year-button">Год</a>

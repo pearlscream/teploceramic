@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionForms extends Model {
-	public function getData($limit,$filter) {
+	public function getData($limit,$filter,$date) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "forms_data` ORDER BY `data_id` DESC LIMIT ".(int)$limit['start']." , ".(int)$limit['end']);
 
 		if ($filter == 'month') {
@@ -13,6 +13,9 @@ class ModelExtensionForms extends Model {
 
 		if ($filter == 'week') {
 			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "forms_data` where year(date) = year(now()) and week(date, 1) = week(now(), 1) ORDER BY `data_id` DESC LIMIT " . (int)$limit['start'] . " , " . (int)$limit['end']);
+		}
+		if (isset($date) && $date != '1970-01-01 03:00:00') {
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "forms_data` WHERE date_format(date, '%Y%m%d') = date_format('" . $date . "', '%Y%m%d') ORDER BY `data_id` DESC LIMIT " . (int)$limit['start'] . " , " . (int)$limit['end']);
 		}
 //		$query = $this->db->query("select * from `la_forms_data` where date_format(date, '%Y%m') = date_format(now(), '%Y%m')");
 
@@ -35,7 +38,7 @@ class ModelExtensionForms extends Model {
 // print_r(unserialize($row['comments']));
 		return $data;
 	}
-	public function getTotalData($filter) {
+	public function getTotalData($filter, $date) {
 		$query = $this->db->query("SELECT count(*) as total FROM `" . DB_PREFIX . "forms_data` ");
 
 		if ($filter == 'month') {
@@ -47,6 +50,10 @@ class ModelExtensionForms extends Model {
 		}
 		if ($filter == 'week') {
 			$query = $this->db->query("SELECT count(*) as total FROM `" . DB_PREFIX . "forms_data` where year(date) = year(now()) and week(date, 1) = week(now(), 1)");
+		}
+
+		if (isset($date) && $date != '1970-01-01 03:00:00') {
+			$query = $this->db->query("SELECT count(*) as total FROM `" . DB_PREFIX . "forms_data` WHERE date_format(date, '%Y%m%d') = date_format('" . $date . "', '%Y%m%d')");
 		}
 
 
