@@ -615,4 +615,8 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
     display: none;
     visibility: unset;
 }
+
+.filters form input{
+	margin: 4px;
+}
 /* Menu Fix For System -> Layout -> Banner */

@@ -12,39 +12,54 @@
     </div>
     <div class="container-fluid">
         <div class="filters">
-            <form action="<?php echo $url ?>" method="get">
+            <form style="display: inline-block" action="<?php echo $url ?>" method="get">
                 <input type="hidden" name="route" value="<?php echo $route ?>">
                 <input type="hidden" name="token" value="<?php echo $token?>">
-                <input type="datetime-local" id="date-filter" name="date" value="<?php echo date('Y-m-d\TG:i:s')?>">
-                <input type="submit" value="Фильтр">
+                <input class="form-control" style="display: inline-block; width: 70%" type="datetime-local"
+                       id="date-filter" name="date" value="<?php echo date('Y-m-d\TG:i:s')?>">
+                <input class="btn-primary btn" style="display: inline-block" type="submit" value="Фильтр">
             </form>
-            <form action="<?php echo $url ?>" method="get">
+            <form style="display: inline-block" action="<?php echo $url ?>" method="get">
                 <input type="hidden" name="route" value="<?php echo $route ?>">
                 <input type="hidden" name="token" value="<?php echo $token?>">
-                <input type="submit" value="Все">
+                <input class="btn-primary btn" type="submit" value="Все">
             </form>
-            <form action="<?php echo $url ?>" method="get">
+            <form style="display: inline-block" action="<?php echo $url ?>" method="get">
                 <input type="hidden" name="route" value="<?php echo $route ?>">
                 <input type="hidden" name="token" value="<?php echo $token?>">
-                <input type="number" name="telephone" placeholder="номер телефона">
-                <input type="submit" value="Телефон">
+                <input class="form-control" style="display:inline-block; width: 60%" type="number" name="telephone"
+                       placeholder="номер телефона">
+                <input class="btn-primary btn" type="submit" value="Телефон">
             </form>
-            <a href="<?php echo $url . '&filter=week'?>" class="week-button">Неделя</a>
-            <a href="<?php echo $url . '&filter=month'?>" class="month-button">Месяц</a>
-            <a href="<?php echo $url . '&filter=year'?>" class="year-button">Год</a>
-            <a href="<?php echo $url . '&filter=get_back'?>" class="get-back">get-back</a>
-            <a href="<?php echo $url . '&filter=middle_form'?>" class="middle-form">middle-form</a>
-            <a href="<?php echo $url . '&filter=have_question'?>" class="have-question">have-question</a>
-            <a href="<?php echo $url . '&filter=call'?>" class="call">call</a>
-            <a href="<?php echo $url . '&filter=order'?>" class="order">order</a>
+            <div>
+                <div style="display: inline-block">
+                    <a class="btn-primary btn" href="<?php echo $url . '&filter=week'?>" class="week-button">Неделя</a>
+                    <a class="btn-primary btn" href="<?php echo $url . '&filter=month'?>" class="month-button">Месяц</a>
+                    <a class="btn-primary btn" href="<?php echo $url . '&filter=year'?>" class="year-button">Год</a>
+                </div>
+                <div style="display: inline-block; right: 0; position: absolute;">
+                    <a class="btn-primary btn" href="<?php echo $url . '&filter=get_back'?>"
+                       class="get-back">get-back</a>
+                    <a class="btn-primary btn" href="<?php echo $url . '&filter=middle_form'?>" class="middle-form">middle-form</a>
+                    <a class="btn-primary btn" href="<?php echo $url . '&filter=have_question'?>" class="have-question">have-question</a>
+                    <a class="btn-primary btn" href="<?php echo $url . '&filter=call'?>" class="call">call</a>
+                    <a class="btn-primary btn" href="<?php echo $url . '&filter=order'?>" class="order">order</a>
+                </div>
+            </div>
             <form action="#0" id="add-call">
-                <p class="right-title">Добавить звонок</p>
+                <button id="add-call-show" class="btn btn-primary" style="margin: 5px;">Добавить звонок</button>
                 <input type="hidden" name="name" data-error="E-mail обязателен для заполнения!">
-                <input type="text" placeholder="Номер телефона" name="telephone" class="mask"
-                       data-error="Номер телефона обязателен для заполнения!">
-                <input type="text" placeholder="E-mail" name="email" data-error="E-mail обязателен для заполнения!">
-                <input type="submit" value="Добавить звонок">
-                <input type="hidden" value="call" name="form_id" class="form-control">
+                <div id="add-call-inputs" style="display: none">
+                    <input class="form-control" style="width: 40%;display: inline-block" type="text"
+                           placeholder="Номер телефона" name="telephone" class="mask"
+                           data-error="Номер телефона обязателен для заполнения!">
+                    <input class="form-control" style="width: 40%; display: inline-block" type="text"
+                           placeholder="E-mail" name="email"
+                           data-error="E-mail обязателен для заполнения!">
+                    <input class="btn-primary btn" type="submit" value="Добавить звонок">
+                    <input type="hidden" value="call" name="form_id" class="form-control">
+                </div>
+
             </form>
         </div>
         <?php if ($error_warning) { ?>
@@ -108,7 +123,9 @@
                         <td>
                             <a onclick="edit(<?php echo $lead['data_id'] ?>);" data-toggle="tooltip"
                                title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-                            <a href="index.php?route=module/forms/delete&token=<?php echo $token?>&lead_id=<?php echo $lead['data_id']?>" data-toggle="tooltip" title="Удалить" class="btn btn-primary"><i class="fa fa-eraser"></i></a>
+                            <a href="index.php?route=module/forms/delete&token=<?php echo $token?>&lead_id=<?php echo $lead['data_id']?>"
+                               data-toggle="tooltip" title="Удалить" class="btn btn-primary"><i
+                                        class="fa fa-eraser"></i></a>
                             <a onclick="save(<?php echo $lead['data_id'] ?>);" data-toggle="tooltip"
                                title="<?php echo $button_save; ?>" class="btn btn-primary hidden"><i
                                         class="fa fa-save"></i></a>
@@ -148,6 +165,9 @@
 
         <script>
             $(document).ready(function () {
+                $('#add-call-show').click(function (e) {
+                    $('#add-call-inputs').toggle();
+                })
                 $('#add-call').submit(function (e) {
                     e.preventDefault();
 //                    ga('send', 'event', 'button', 'click', $('#' + formname).find('input[name="form_id"]').val());
@@ -183,9 +203,21 @@
         <script>
 
             var status = '<select name="status" id="status{{id}}" class="form-control">';
-            <?php foreach($statuses as $status) { ?>
-                status += '<option value="<?php echo $status['status_id']; ?>"><?php echo $status['title'][$lang]; ?></option>';
-            <?php } ?>
+            <
+            ? php foreach($statuses as $status)
+            {
+                ?
+            >
+                status += '<option value="<?php echo $status['
+                status_id
+                ']; ?>"><?php echo $status['
+                title
+                '][$lang]; ?></option>';
+            <
+                ? php
+            }
+            ?
+            >
             status += '</select>';
             var comment = '<textarea name="comment" id="comment{{id}}" class="form-control"></textarea>';
             function edit(data_id) {
