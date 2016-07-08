@@ -97,8 +97,9 @@ class ControllerExtensionForms extends Controller {
 			);
 
 		$filter = $this->request->get['filter'];
-		$data['leads'] = $this->model_extension_forms->getData($limit,$filter,$date);
-		$data_total = $this->model_extension_forms->getTotalData($filter,$date);
+		$telephone = $this->request->get['telephone'];
+		$data['leads'] = $this->model_extension_forms->getData($limit,$filter,$date,$telephone);
+		$data_total = $this->model_extension_forms->getTotalData($filter,$date,$telephone);
 
 		$data['add'] = $this->url->link('sale/order/add', 'token=' . $this->session->data['token'], 'SSL');
 		$data['forms_users'] = $this->config->get('forms_user');

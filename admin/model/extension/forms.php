@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionForms extends Model {
-	public function getData($limit,$filter,$date) {
+	public function getData($limit,$filter,$date,$telephone) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "forms_data` ORDER BY `data_id` DESC LIMIT ".(int)$limit['start']." , ".(int)$limit['end']);
 
 		if ($filter == 'month') {
@@ -18,11 +18,15 @@ class ModelExtensionForms extends Model {
 			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "forms_data` WHERE date_format(date, '%Y%m%d') = date_format('" . $date . "', '%Y%m%d') ORDER BY `data_id` DESC LIMIT " . (int)$limit['start'] . " , " . (int)$limit['end']);
 		}
 
-		if ($filter == 'get_back' || $filter == "middle_form" || $filter == "have_question") {
+		if ($filter == 'get_back' || $filter == "middle_form" || $filter == "have_question" || $filter == "call" || $filter == "order") {
 			if ($filter != "middle_form") {
 				$filter=str_replace("_", " ", $filter);
 			}
 			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "forms_data` where form_id = '" . $filter . "' ORDER BY `data_id` DESC LIMIT " . (int)$limit['start'] . " , " . (int)$limit['end']);
+		}
+
+		if (isset($telephone)) {
+			$query = $this->db->query("SELECT *, REPLACE(REPLACE(REPLACE(REPLACE(telephone,'-',''),' ',''),')',''),'(','') as phone FROM `" . DB_PREFIX . "forms_data` HAVING phone like '". $telephone ."%'");
 		}
 //		$query = $this->db->query("select * from `la_forms_data` where date_format(date, '%Y%m') = date_format(now(), '%Y%m')");
 
@@ -45,7 +49,7 @@ class ModelExtensionForms extends Model {
 // print_r(unserialize($row['comments']));
 		return $data;
 	}
-	public function getTotalData($filter, $date) {
+	public function getTotalData($filter, $date,$telephone) {
 		$query = $this->db->query("SELECT count(*) as total FROM `" . DB_PREFIX . "forms_data` ");
 
 		if ($filter == 'month') {
@@ -66,15 +70,17 @@ class ModelExtensionForms extends Model {
 			$query = $this->db->query("SELECT count(*) as total FROM `" . DB_PREFIX . "forms_data` WHERE date_format(date, '%Y%m%d') = date_format('" . $date . "', '%Y%m%d')");
 		}
 
-		if ($filter == 'get_back' || $filter == "middle_form" || $filter == "have_question") {
+		if ($filter == 'get_back' || $filter == "middle_form" || $filter == "have_question" || $filter == "call" || $filter == "order") {
 			if ($filter != "middle_form") {
 				$filter=str_replace("_", " ", $filter);
 			}
 			$query = $this->db->query("SELECT count(*) as total FROM `" . DB_PREFIX . "forms_data` where form_id = '" . $filter . "'");
 		}
 
-
-
+		if (isset($telephone)) {
+			$query = $this->db->query("SELECT count(phone) as total, REPLACE(REPLACE(REPLACE(REPLACE(telephone,'-',''),' ',''),')',''),'(','') as phone FROM `" . DB_PREFIX . "forms_data` HAVING phone like '". $telephone ."%'");
+		}
+		//SELECT *, REPLACE(REPLACE(REPLACE(REPLACE(telephone,'-',''),' ',''),')',''),'(','') as phone FROM `la_forms_data` HAVING phone like '067%'
 		return $query->row['total'];
 	}
 

@@ -35,6 +35,8 @@
             <a href="<?php echo $url . '&filter=get_back'?>" class="get-back">get-back</a>
             <a href="<?php echo $url . '&filter=middle_form'?>" class="middle-form">middle-form</a>
             <a href="<?php echo $url . '&filter=have_question'?>" class="have-question">have-question</a>
+            <a href="<?php echo $url . '&filter=call'?>" class="call">call</a>
+            <a href="<?php echo $url . '&filter=order'?>" class="order">order</a>
             <form action="#0" id="add-call">
                 <p class="right-title">Добавить звонок</p>
                 <input type="hidden" name="name" data-error="E-mail обязателен для заполнения!">
