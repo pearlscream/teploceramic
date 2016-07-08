@@ -23,9 +23,27 @@
                 <input type="hidden" name="token" value="<?php echo $token?>">
                 <input type="submit" value="Все">
             </form>
+            <form action="<?php echo $url ?>" method="get">
+                <input type="hidden" name="route" value="<?php echo $route ?>">
+                <input type="hidden" name="token" value="<?php echo $token?>">
+                <input type="number" name="telephone" placeholder="номер телефона">
+                <input type="submit" value="Телефон">
+            </form>
             <a href="<?php echo $url . '&filter=week'?>" class="week-button">Неделя</a>
             <a href="<?php echo $url . '&filter=month'?>" class="month-button">Месяц</a>
             <a href="<?php echo $url . '&filter=year'?>" class="year-button">Год</a>
+            <a href="<?php echo $url . '&filter=get_back'?>" class="get-back">get-back</a>
+            <a href="<?php echo $url . '&filter=middle_form'?>" class="middle-form">middle-form</a>
+            <a href="<?php echo $url . '&filter=have_question'?>" class="have-question">have-question</a>
+            <form action="#0" id="add-call">
+                <p class="right-title">Добавить звонок</p>
+                <input type="hidden" name="name" data-error="E-mail обязателен для заполнения!">
+                <input type="text" placeholder="Номер телефона" name="telephone" class="mask"
+                       data-error="Номер телефона обязателен для заполнения!">
+                <input type="text" placeholder="E-mail" name="email" data-error="E-mail обязателен для заполнения!">
+                <input type="submit" value="Добавить звонок">
+                <input type="hidden" value="call" name="form_id" class="form-control">
+            </form>
         </div>
         <?php if ($error_warning) { ?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
@@ -123,7 +141,43 @@
             </table>
         </div>
         <div style="text-align: center;"><?php echo $pagination; ?></div>
+
         <script>
+            $(document).ready(function () {
+                $('#add-call').submit(function (e) {
+                    e.preventDefault();
+//                    ga('send', 'event', 'button', 'click', $('#' + formname).find('input[name="form_id"]').val());
+                    var name_error = $(this).find('input[name="name"]').attr('data-error');
+                    var phone_error = $(this).find('input[name="telephone"]').attr('data-error');
+                    var email = $(this).find('input[name="email"]').attr('data-error');
+
+                    var date = new Date();
+                    var curr_date = date.getDate();
+                    var curr_month = date.getMonth() + 1;
+                    var curr_year = date.getFullYear();
+                    var curr_hours = date.getHours();
+                    var curr_minutes = date.getMinutes();
+                    date = curr_year + "-" + curr_month + "-" + curr_date + " " + curr_hours + ":" + curr_minutes;
+
+                    console.log($(this).serialize() + '&date=' + date);
+                    $.ajax({
+                        url: '/index.php?route=module/forms/save',
+                        type: 'post',
+                        data: $(this).serialize() + '&date=' + date,
+                        dataType: 'json',
+                        success: function (json) {
+                            location.reload();
+                            console.log($(this).serialize());
+                        },
+                        error: function () {
+                            alert('ОШИБКА. Запись не добавлена :( ');
+                        }
+                    });
+                });
+            });
+        </script>
+        <script>
+
             var status = '<select name="status" id="status{{id}}" class="form-control">';
             <
             ? php foreach($statuses as $status)

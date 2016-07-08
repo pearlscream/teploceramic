@@ -17,6 +17,13 @@ class ModelExtensionForms extends Model {
 		if (isset($date) && $date != '1970-01-01 03:00:00') {
 			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "forms_data` WHERE date_format(date, '%Y%m%d') = date_format('" . $date . "', '%Y%m%d') ORDER BY `data_id` DESC LIMIT " . (int)$limit['start'] . " , " . (int)$limit['end']);
 		}
+
+		if ($filter == 'get_back' || $filter == "middle_form" || $filter == "have_question") {
+			if ($filter != "middle_form") {
+				$filter=str_replace("_", " ", $filter);
+			}
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "forms_data` where form_id = '" . $filter . "' ORDER BY `data_id` DESC LIMIT " . (int)$limit['start'] . " , " . (int)$limit['end']);
+		}
 //		$query = $this->db->query("select * from `la_forms_data` where date_format(date, '%Y%m') = date_format(now(), '%Y%m')");
 
 
@@ -51,9 +58,19 @@ class ModelExtensionForms extends Model {
 		if ($filter == 'week') {
 			$query = $this->db->query("SELECT count(*) as total FROM `" . DB_PREFIX . "forms_data` where year(date) = year(now()) and week(date, 1) = week(now(), 1)");
 		}
+		if ($filter == 'get_back' || $filter == "middle_form" || $filter == "have_questions") {
+			$query = $this->db->query("SELECT count(*) as total FROM `" . DB_PREFIX . "forms_data` where form_id = " . $filter);
+		}
 
 		if (isset($date) && $date != '1970-01-01 03:00:00') {
 			$query = $this->db->query("SELECT count(*) as total FROM `" . DB_PREFIX . "forms_data` WHERE date_format(date, '%Y%m%d') = date_format('" . $date . "', '%Y%m%d')");
+		}
+
+		if ($filter == 'get_back' || $filter == "middle_form" || $filter == "have_question") {
+			if ($filter != "middle_form") {
+				$filter=str_replace("_", " ", $filter);
+			}
+			$query = $this->db->query("SELECT count(*) as total FROM `" . DB_PREFIX . "forms_data` where form_id = '" . $filter . "'");
 		}
 
 
