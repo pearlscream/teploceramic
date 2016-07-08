@@ -108,6 +108,7 @@
                         <td>
                             <a onclick="edit(<?php echo $lead['data_id'] ?>);" data-toggle="tooltip"
                                title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                            <a href="index.php?route=module/forms/delete&token=<?php echo $token?>&lead_id=<?php echo $lead['data_id']?>" data-toggle="tooltip" title="Удалить" class="btn btn-primary"><i class="fa fa-eraser"></i></a>
                             <a onclick="save(<?php echo $lead['data_id'] ?>);" data-toggle="tooltip"
                                title="<?php echo $button_save; ?>" class="btn btn-primary hidden"><i
                                         class="fa fa-save"></i></a>

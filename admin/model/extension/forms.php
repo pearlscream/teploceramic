@@ -103,4 +103,9 @@ class ModelExtensionForms extends Model {
 
 		return $comments;
 	}
+
+	public function removeData($lead_id) {
+		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "forms_data` WHERE data_id = '". $lead_id . "'");
+		return true;
+	}
 }

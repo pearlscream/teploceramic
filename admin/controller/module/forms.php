@@ -106,6 +106,15 @@ class ControllerModuleForms extends Controller {
 		$this->response->setOutput($this->load->view('module/forms.tpl', $data));
 	}
 
+
+
+	public function delete() {
+		$this->load->model('extension/forms');
+		$lead_id = $this->request->get["lead_id"];
+		$this->model_extension_forms->removeData($lead_id);
+		$this->response->redirect($this->url->link('extension/forms', 'token=' . $this->session->data['token'], 'SSL'));
+	}
+
 	public function view() {
 		$this->load->language('module/forms');
 
