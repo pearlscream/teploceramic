@@ -142,6 +142,7 @@
         </div>
         <div style="text-align: center;"><?php echo $pagination; ?></div>
 
+
         <script>
             $(document).ready(function () {
                 $('#add-call').submit(function (e) {
@@ -179,21 +180,9 @@
         <script>
 
             var status = '<select name="status" id="status{{id}}" class="form-control">';
-            <
-            ? php foreach($statuses as $status)
-            {
-                ?
-            >
-                status += '<option value="<?php echo $status['
-                status_id
-                ']; ?>"><?php echo $status['
-                title
-                '][$lang]; ?></option>';
-            <
-                ? php
-            }
-            ?
-            >
+            <?php foreach($statuses as $status) { ?>
+                status += '<option value="<?php echo $status['status_id']; ?>"><?php echo $status['title'][$lang]; ?></option>';
+            <?php } ?>
             status += '</select>';
             var comment = '<textarea name="comment" id="comment{{id}}" class="form-control"></textarea>';
             function edit(data_id) {
