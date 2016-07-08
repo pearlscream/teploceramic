@@ -24,15 +24,15 @@
                 <input type="hidden" name="token" value="<?php echo $token?>">
                 <input class="btn-primary btn" type="submit" value="Все">
             </form>
-            <form style="display: inline-block" action="<?php echo $url ?>" method="get">
+            <form style="display: inline-block; position: absolute; right: 0;" action="<?php echo $url ?>" method="get">
                 <input type="hidden" name="route" value="<?php echo $route ?>">
                 <input type="hidden" name="token" value="<?php echo $token?>">
-                <input class="form-control" style="display:inline-block; width: 60%" type="number" name="telephone"
+                <input class="form-control" style="display:inline-block;  width: 305px" type="number" name="telephone"
                        placeholder="номер телефона">
                 <input class="btn-primary btn" type="submit" value="Телефон">
             </form>
             <div>
-                <div style="display: inline-block">
+                <div style="display: inline-block; margin-left: 5px">
                     <a class="btn-primary btn" href="<?php echo $url . '&filter=week'?>" class="week-button">Неделя</a>
                     <a class="btn-primary btn" href="<?php echo $url . '&filter=month'?>" class="month-button">Месяц</a>
                     <a class="btn-primary btn" href="<?php echo $url . '&filter=year'?>" class="year-button">Год</a>
@@ -46,7 +46,7 @@
                     <a class="btn-primary btn" href="<?php echo $url . '&filter=order'?>" class="order">order</a>
                 </div>
             </div>
-            <form action="#0" id="add-call">
+            <form action="#0" id="add-call" style="text-align: center">
                 <button id="add-call-show" class="btn btn-primary" style="margin: 5px;">Добавить звонок</button>
                 <input type="hidden" name="name" data-error="E-mail обязателен для заполнения!">
                 <div id="add-call-inputs" style="display: none">
@@ -166,6 +166,7 @@
         <script>
             $(document).ready(function () {
                 $('#add-call-show').click(function (e) {
+                    e.preventDefault();
                     $('#add-call-inputs').toggle();
                 })
                 $('#add-call').submit(function (e) {
