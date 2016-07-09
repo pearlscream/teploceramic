@@ -96,9 +96,9 @@ class ModelExtensionForms extends Model {
 		if(!empty($data['comment'])){
 
 			$comments[date ("Y-m-d H:i:s", time())] = $data['comment'];
-			$this->db->query("UPDATE `" . DB_PREFIX . "forms_data` SET status_id = '".(int)$data['status']."', comments = '" . serialize($comments) . "' WHERE data_id = '".(int)$data['data_id']."'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "forms_data` SET status_id = '".(int)$data['status'] . "', date = '" . $data['date'] . "', comments = '" . serialize($comments) . "' WHERE data_id = '".(int)$data['data_id']."'");
 		}else{
-			$this->db->query("UPDATE `" . DB_PREFIX . "forms_data` SET status_id = '".(int)$data['status']."' WHERE data_id = '".(int)$data['data_id']."'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "forms_data` SET date = '".$data['date'] .",status_id = '".(int)$data['status']."' WHERE data_id = '".(int)$data['data_id']."'");
 		}
 
 		return $comments;

@@ -202,23 +202,10 @@
             });
         </script>
         <script>
-
             var status = '<select name="status" id="status{{id}}" class="form-control">';
-            <
-            ? php foreach($statuses as $status)
-            {
-                ?
-            >
-                status += '<option value="<?php echo $status['
-                status_id
-                ']; ?>"><?php echo $status['
-                title
-                '][$lang]; ?></option>';
-            <
-                ? php
-            }
-            ?
-            >
+            <?php foreach($statuses as $status) { ?>
+                status += '<option value="<?php echo $status['status_id']; ?>"><?php echo $status['title'][$lang]; ?></option>';
+            <?php } ?>
             status += '</select>';
             var comment = '<textarea name="comment" id="comment{{id}}" class="form-control"></textarea>';
             function edit(data_id) {
@@ -232,6 +219,14 @@
                 // console.log(lead.find('#status').val());
             }
             function save(data_id) {
+                var date = new Date();
+                var curr_date = date.getDate();
+                var curr_month = date.getMonth() + 1;
+                var curr_year = date.getFullYear();
+                var curr_hours = date.getHours();
+                var curr_minutes = date.getMinutes();
+                date = curr_year + "-" + curr_month + "-" + curr_date + " " + curr_hours + ":" + curr_minutes;
+
                 var lead = $('#lead' + data_id);
                 console.log(lead.find('#status' + data_id).val());
                 console.log(lead.find('#commentcomment' + data_id).val());
@@ -244,6 +239,7 @@
                         'data_id': data_id,
                         'status': lead.find('#status' + data_id).val(),
                         'comment': lead.find('#comment' + data_id).val(),
+                        'date' : date,
                     },
                     dataType: 'json',
                     success: function (data) {
