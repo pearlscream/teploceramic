@@ -71,6 +71,8 @@ class ControllerExtensionModule extends Controller {
 		$this->getList();
 	}
 
+	
+
 	public function delete() {
 		$this->load->language('extension/module');
 

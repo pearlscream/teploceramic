@@ -16,7 +16,7 @@ class ModelExtensionForms extends Model {
 		if ($filter == 'week') {
 			$query = $this->db->query("SELECT *,COUNT(telephone) as treatment FROM `" . DB_PREFIX . "forms_data` where year(date) = year(now()) and week(date, 1) = week(now(), 1) GROUP BY telephone ORDER BY `data_id` DESC LIMIT " . (int)$limit['start'] . " , " . (int)$limit['end']);
 		}
-		if (isset($date) && $date != '1970-01-01 03:00:00') {
+		if (isset($date) && $date != '1970-01-01 03:00:00' && $date != '') {
 			$query = $this->db->query("SELECT *,COUNT(telephone) as treatment FROM `" . DB_PREFIX . "forms_data` WHERE date_format(date, '%Y%m%d') = date_format('" . $date . "', '%Y%m%d') GROUP BY telephone ORDER BY `data_id` DESC LIMIT " . (int)$limit['start'] . " , " . (int)$limit['end']);
 		}
 
@@ -110,5 +110,25 @@ class ModelExtensionForms extends Model {
 	public function removeData($lead_id) {
 		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "forms_data` WHERE data_id = '". $lead_id . "'");
 		return true;
+	}
+
+	public function getPhones($telephone) {
+		$query = $this->db->query("SELECT *, REPLACE(REPLACE(REPLACE(REPLACE(telephone,'-',''),' ',''),')',''),'(','') as phone FROM `" . DB_PREFIX . "forms_data` HAVING phone like '". $telephone ."%' ORDER BY `data_id` DESC");
+		$data = array();
+		foreach ($query->rows as $row) {
+			$data[] = array(
+				'data_id'     => $row['data_id'],
+				'form_id'     => $row['form_id'],
+				'customer_id' => $row['customer_id'],
+				'name'        => $row['name'],
+				'email'       => $row['email'],
+				'telephone'   => $row['telephone'],
+				'date'   	  => $row['date'],
+				'add'         => unserialize($row['add']),
+				'status_id'   => $row['status_id'],
+				'comments'    => unserialize($row['comments']),
+			);
+		}
+		return $data;
 	}
 }

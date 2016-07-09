@@ -121,8 +121,8 @@
                             </dl>
                             <?php } ?>
                         </td>
-                        <td class="comment">
-                            <button class="btn btn-primary"><?php echo $lead['treatment'] ?></button>
+                        <td>
+                            <button class="btn btn-primary treatment-btn"><?php echo $lead['treatment'] ?></button>
                         </td>
                         <td>
                             <a onclick="edit(<?php echo $lead['data_id'] ?>);" data-toggle="tooltip"

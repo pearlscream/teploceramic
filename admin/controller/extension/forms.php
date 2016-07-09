@@ -120,4 +120,12 @@ class ControllerExtensionForms extends Controller {
 
 		$this->response->setOutput($this->load->view('extension/forms.tpl', $data));
 	}
+
+	public function phones() {
+		$telephone = $this->request->get['telephone'];
+		$this->load->model('extension/forms');
+		$data['leads'] = $this->model_extension_forms->getPhones($telephone);
+		$json = json_encode($data['leads']);
+		$this->response->setOutput($json);
+	}
 }
