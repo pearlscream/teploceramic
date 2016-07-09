@@ -754,9 +754,9 @@ $(document).ready(function () {
             $(this).hide(400);
         });
         $('#' + modal + ' > *').click(function (e) {
-            e.stopPropagation();
-        });
-    });
+e.stopPropagation();
+});
+});
 });
 
 function cost_calk() {
