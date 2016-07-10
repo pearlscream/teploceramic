@@ -26,18 +26,19 @@ function getURLVar(key) {
 
 
 $(document).ready(function() {
-
 	$('.treatment-btn').click(function (event) {
 		var self = $(this);
+		var telephone = $(self.parent().parent().children()[3]).text();
+		telephone = telephone.replace(/[^0-9]/gim,'');
+		self.unbind('click');
 		$.ajax({
-			url: 'index.php?route=extension%2Fforms/phones&telephone=3806803120&token=' + getURLVar('token'),
+			url: 'index.php?route=extension%2Fforms/phones&telephone=' + telephone + '&token=' + getURLVar('token'),
 			dataType: 'json',
 			success: function(json) {
                 json = json.reverse();
                 $.each(json,function (index,value) {
                     if (index != 0) {
                         var html = $('table tbody tr:first-child').clone();
-                        console.log(value);
                         $(html.children()[0]).html(value['form_id']);
                         $(html.children()[1]).html(value['name']);
                         $(html.children()[2]).html(value['email']);
@@ -49,16 +50,30 @@ $(document).ready(function() {
                         $(html.children()[8]).html('');
                         $($(html.children()[9]).children()[0]).attr('onclick', '').unbind('click');
                         $($(html.children()[9]).children()[0]).attr('id', 'edit-btn-' + value['data_id']);
-                        html = "<tr id=lead" + value['data_id'] + ">" + html.html() + "</tr>";
+						$($(html.children()[9]).children()[1]).attr('href', 'index.php?route=module/forms/delete&token=' + getURLVar('token') + '&lead_id=' + value['data_id']);
+						$($(html.children()[9]).children()[2]).attr('onclick', '').unbind('click');
+						$($(html.children()[9]).children()[2]).attr('id', 'save-btn-' + value['data_id']);
+                        html = "<tr class='open' id=lead" + value['data_id'] + ">" + html.html() + "</tr>";
                         self.parent().parent().after(html);
                         $('#edit-btn-' + value['data_id']).click(function () {
-                            edit(value['data_id']);
-                        });
+							edit(value['data_id']);
+						});
+						$('#save-btn-' + value['data_id']).click(function () {
+							save(value['data_id']);
+						});
+						$('#delete-btn-' + value['data_id']).click(function () {
+							edit(value['data_id']);
+						});
                         // console.log(value);
                         // console.log('hello');
                     } });
+
                 // console.log($(json).each());
 			}
+		});
+
+		self.click(function (event) {
+				$('.open').toggle();
 		});
 
 	});

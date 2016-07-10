@@ -619,4 +619,8 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 .filters form input{
 	margin: 4px;
 }
+
+.open {
+	background: #e8e8e8;
+}
 /* Menu Fix For System -> Layout -> Banner */
