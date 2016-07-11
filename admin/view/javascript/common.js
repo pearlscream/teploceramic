@@ -38,7 +38,8 @@ $(document).ready(function() {
                // json = json.reverse();
                 $.each(json,function (index,value) {
                     if (index != 0) {
-                        var html = $('table tbody tr:first-child').clone();
+                        var html = $('.table tbody tr:first-child').clone();
+						console.log(html);
                         $(html.children()[0]).html(value['form_id']);
                         $(html.children()[1]).html(value['name']);
                         $(html.children()[2]).html(value['email']);

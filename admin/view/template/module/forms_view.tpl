@@ -122,7 +122,7 @@
           <a onclick="save(<?php echo $lead['data_id'] ?>);" data-toggle="tooltip"
              title="<?php echo $button_save; ?>" class="btn btn-primary hidden"><i
                     class="fa fa-save"></i></a>
-          <form action="<?php echo $add; ?>" method="POST" id="add-<?php echo $num; ?>">
+          <form action="<?php  echo $add; ?>" method="POST" id="add-<?php echo $num; ?>">
             <?php
                 $customer_group_id = 1;
                 foreach ($forms_users as $user) {
