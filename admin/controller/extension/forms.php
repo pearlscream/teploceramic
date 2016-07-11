@@ -122,9 +122,18 @@ class ControllerExtensionForms extends Controller {
 	}
 
 	public function phones() {
+		$data['lang'] = $this->config->get('config_language_id');
+		$data['statuses'] = $this->config->get('forms');
 		$telephone = $this->request->get['telephone'];
 		$this->load->model('extension/forms');
 		$data['leads'] = $this->model_extension_forms->getPhones($telephone);
+		$i = 0;
+		foreach ($data['leads'] as $lead) {
+			$status   = '<span class="label" data-status="' . $lead['status_id'] . '" style="background: ' . $data['statuses'][$lead['status_id']]['bg'] . '; color: ' . $data['statuses'][$lead['status_id']]['color'] . ';">'.$data['statuses'][$lead['status_id']]['title'][$data['lang']].'</span>';
+		//	$status = 123;
+			$data['leads'][$i]['status'] = $status;
+			$i++;
+		}
 		$json = json_encode($data['leads']);
 		$this->response->setOutput($json);
 	}

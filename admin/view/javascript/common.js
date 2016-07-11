@@ -35,7 +35,7 @@ $(document).ready(function() {
 			url: 'index.php?route=extension%2Fforms/phones&telephone=' + telephone + '&token=' + getURLVar('token'),
 			dataType: 'json',
 			success: function(json) {
-                json = json.reverse();
+               // json = json.reverse();
                 $.each(json,function (index,value) {
                     if (index != 0) {
                         var html = $('table tbody tr:first-child').clone();
@@ -44,9 +44,22 @@ $(document).ready(function() {
                         $(html.children()[2]).html(value['email']);
                         $(html.children()[3]).html(value['telephone']);
                         $(html.children()[4]).html(value['date']);
-                        $(html.children()[5]).attr('data-status', value['status_id']);
-                        $(html.children()[6]).html(value['add']);
-                        $(html.children()[7]).html(value['comments']);
+						$(html.children()[5]).html(value['status']);
+						var add = "<dl class='dl-horizontal'>";
+						for (key in value['add']) {
+							add += "<dt>" + key + "</dt> <dd>" +  value['add'][key] + '</dd>';
+						}
+						add += "</dl>";
+
+                        $(html.children()[6]).html(add);
+
+						var comment = "<dl class='dl-horizontal'>";
+						for (key in value['comments']) {
+							comment += "<dt>" + key + "</dt> <dd>" +  value['comments'][key] + '</dd>';
+						}
+						comment += "</dl>";
+
+						$(html.children()[7]).html(comment);
                         $(html.children()[8]).html('');
                         $($(html.children()[9]).children()[0]).attr('onclick', '').unbind('click');
                         $($(html.children()[9]).children()[0]).attr('id', 'edit-btn-' + value['data_id']);
@@ -64,7 +77,6 @@ $(document).ready(function() {
 						$('#delete-btn-' + value['data_id']).click(function () {
 							edit(value['data_id']);
 						});
-                        // console.log(value);
                         // console.log('hello');
                     } });
 

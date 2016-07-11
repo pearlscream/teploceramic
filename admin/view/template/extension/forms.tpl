@@ -38,8 +38,10 @@
                     <a class="btn-primary btn" href="<?php echo $url . '&filter=year'?>" class="year-button">Год</a>
                 </div>
                 <div style="display: inline-block; right: 0; position: absolute;">
-                    <a class="btn-primary btn" href="<?php echo $url . '&filter=get_back'?>"
-                       class="get-back">get-back</a>
+                    <a class="btn-primary btn" href="<?php echo $url . '&filter=get_back(1)'?>"
+                       class="get-back">get-back(1)</a>
+                    <a class="btn-primary btn" href="<?php echo $url . '&filter=get_back(2)'?>"
+                       class="get-back">get-back(2)</a>
                     <a class="btn-primary btn" href="<?php echo $url . '&filter=middle_form'?>" class="middle-form">middle-form</a>
                     <a class="btn-primary btn" href="<?php echo $url . '&filter=have_question'?>" class="have-question">have-question</a>
                     <a class="btn-primary btn" href="<?php echo $url . '&filter=call'?>" class="call">call</a>

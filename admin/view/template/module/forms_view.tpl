@@ -9,60 +9,121 @@
   </div>
   <div class="table-responsive">
     <div class="filters">
-      <input type="datetime-local" class="date-filter">
-      <a href="<?php echo $url . '&filter=week'?>" class="week-button">Неделя</a>
-      <a href="<?php echo $url . '&filter=month'?>" class="month-button">Месяц</a>
-      <a href="<?php echo $url . '&filter=year'?>" class="year-button">Год</a>
+      <form style="display: inline-block" action="<?php echo $url ?>" method="get">
+        <input type="hidden" name="route" value="<?php echo $route ?>">
+        <input type="hidden" name="token" value="<?php echo $token?>">
+        <input class="form-control" style="display: inline-block; width: 70%" type="datetime-local"
+               id="date-filter" name="date" value="<?php echo date('Y-m-d\TG:i:s')?>">
+        <input class="btn-primary btn" style="display: inline-block" type="submit" value="Фильтр">
+      </form>
+      <form style="display: inline-block" action="<?php echo $url ?>" method="get">
+        <input type="hidden" name="route" value="<?php echo $route ?>">
+        <input type="hidden" name="token" value="<?php echo $token?>">
+        <input class="btn-primary btn" type="submit" value="Все">
+      </form>
+      <form style="display: inline-block; position: absolute; right: 0;" action="<?php echo $url ?>" method="get">
+        <input type="hidden" name="route" value="<?php echo $route ?>">
+        <input type="hidden" name="token" value="<?php echo $token?>">
+        <input class="form-control" style="display:inline-block;  width: 305px" type="number" name="telephone"
+               placeholder="номер телефона">
+        <input class="btn-primary btn" type="submit" value="Телефон">
+      </form>
+      <div>
+        <div style="display: inline-block; margin-left: 5px">
+          <a class="btn-primary btn" href="<?php echo $url . '&filter=week'?>" class="week-button">Неделя</a>
+          <a class="btn-primary btn" href="<?php echo $url . '&filter=month'?>" class="month-button">Месяц</a>
+          <a class="btn-primary btn" href="<?php echo $url . '&filter=year'?>" class="year-button">Год</a>
+        </div>
+        <div style="display: inline-block; right: 0; position: absolute;">
+          <a class="btn-primary btn" href="<?php echo $url . '&filter=get_back(1)'?>"
+             class="get-back">get-back(1)</a>
+          <a class="btn-primary btn" href="<?php echo $url . '&filter=get_back(2)'?>"
+             class="get-back">get-back(2)</a>
+          <a class="btn-primary btn" href="<?php echo $url . '&filter=middle_form'?>" class="middle-form">middle-form</a>
+          <a class="btn-primary btn" href="<?php echo $url . '&filter=have_question'?>" class="have-question">have-question</a>
+          <a class="btn-primary btn" href="<?php echo $url . '&filter=call'?>" class="call">call</a>
+          <a class="btn-primary btn" href="<?php echo $url . '&filter=order'?>" class="order">order</a>
+        </div>
+      </div>
+      <form action="#0" id="add-call" style="text-align: center">
+        <button id="add-call-show" class="btn btn-primary" style="margin: 5px;">Добавить звонок</button>
+        <input type="hidden" name="name" data-error="E-mail обязателен для заполнения!">
+        <div id="add-call-inputs" style="display: none">
+          <input class="form-control" style="width: 40%;display: inline-block" type="text"
+                 placeholder="Номер телефона" name="telephone" class="mask"
+                 data-error="Номер телефона обязателен для заполнения!">
+          <input class="form-control" style="width: 40%; display: inline-block" type="text"
+                 placeholder="E-mail" name="email"
+                 data-error="E-mail обязателен для заполнения!">
+          <input class="btn-primary btn" type="submit" value="Добавить звонок">
+          <input type="hidden" value="call" name="form_id" class="form-control">
+        </div>
+
+      </form>
     </div>
     <table class="table">
       <thead>
-        <tr>
-          <td><?php echo $text_form; ?></td>
-          <td><?php echo $text_name; ?></td>
-          <td><?php echo $text_email; ?></td>
-          <td><?php echo $text_telephone; ?></td>
-          <td>Дата</td>
-          <td class="text-center"><?php echo $text_status; ?></td>
-          <td class="text-center"><?php echo $text_add; ?></td>
-          <td class="text-center"><?php echo $text_comments; ?></td>
-          <td><?php echo $text_actions; ?></td>
-        </tr>
+      <tr>
+        <td><?php echo $text_form; ?></td>
+        <td><?php echo $text_name; ?></td>
+        <td><?php echo $text_email; ?></td>
+        <td><?php echo $text_telephone; ?></td>
+        <td>Дата</td>
+        <td class="text-center"><?php echo $text_status; ?></td>
+        <td class="text-center"><?php echo $text_add; ?></td>
+        <td class="text-center"><?php echo $text_comments; ?></td>
+        <td class="text-center">Обращения</td>
+        <td><?php echo $text_actions; ?></td>
+      </tr>
       </thead>
+
       <tbody>
-        <?php if ($leads){ ?>
-        <?php foreach ($leads as $num => $lead){ ?>
-        <tr id="lead<?php echo $lead['data_id'] ?>">
-          <td><?php echo $lead['form_id']; ?></td>
-          <td><?php echo $lead['name']; ?></td>
-          <td><a href="mailto:<?php echo $lead['email']; ?>"><?php echo $lead['email']; ?></a></td>
-          <td><a href="tel:<?php echo $lead['telephone']; ?>"><?php echo $lead['telephone']; ?></a></td>
-          <td><?php echo $lead['date']; ?></td>
-          <td class="text-center status"><span class="label" data-status="<?php echo $lead['status_id']; ?>" style="background: <?php echo $statuses[$lead['status_id']]['bg']; ?>; color: <?php echo $statuses[$lead['status_id']]['color']; ?>;"><?php echo $statuses[$lead['status_id']]['title'][$lang]; ?></span></td>
-          <td>
-            <?php if ($lead['add']){ ?>
-            <dl class="dl-horizontal">
+      <?php if ($leads){ ?>
+      <?php foreach ($leads as $num => $lead){ ?>
+      <tr id="lead<?php echo $lead['data_id'] ?>">
+        <td><?php echo $lead['form_id']; ?></td>
+        <td><?php echo $lead['name']; ?></td>
+        <td><a href="mailto:<?php echo $lead['email']; ?>"><?php echo $lead['email']; ?></a></td>
+        <td><a href="tel:<?php echo $lead['telephone']; ?>"><?php echo $lead['telephone']; ?></a></td>
+        <td><?php echo $lead['date']; ?></td>
+        <td class="text-center status"><span class="label"
+                                             data-status="<?php echo $lead['status_id']; ?>"
+                                             style="background: <?php echo $statuses[$lead['status_id']]['bg']; ?>; color: <?php echo $statuses[$lead['status_id']]['color']; ?>;"><?php echo $statuses[$lead['status_id']]['title'][$lang]; ?></span>
+        </td>
+        <td>
+          <?php if ($lead['add']){ ?>
+          <dl class="dl-horizontal">
             <?php foreach ($lead['add'] as $key => $value){ ?>
-              <dt><?php echo $key; ?></dt>
-              <dd><?php echo $value; ?></dd>
+            <dt><?php echo $key; ?></dt>
+            <dd><?php echo $value; ?></dd>
             <?php } ?>
-            </dl>
-            <?php } ?>
-          </td>
-          <td class="comment">
-            <?php if ($lead['comments']){ ?>
-            <dl class="dl-horizontal">
+          </dl>
+          <?php } ?>
+        </td>
+        <td class="comment">
+          <?php if ($lead['comments']){ ?>
+          <dl class="dl-horizontal">
             <?php foreach ($lead['comments'] as $key => $value){ ?>
-                <dt><?php echo $key; ?></dt>
-                <dd><?php echo $value; ?></dd>
+            <dt><?php echo $key; ?></dt>
+            <dd><?php echo $value; ?></dd>
             <?php } ?>
-            </dl>
-            <?php } ?>
-          </td>
-          <td>
-            <a onclick="edit(<?php echo $lead['data_id'] ?>);" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-            <a onclick="save(<?php echo $lead['data_id'] ?>);" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary hidden"><i class="fa fa-save"></i></a>
-            <form action="<?php echo $add; ?>" method="POST" id="add-<?php echo $num; ?>">
-              <?php 
+          </dl>
+          <?php } ?>
+        </td>
+        <td>
+          <button class="btn btn-primary treatment-btn"><?php echo $lead['treatment'] ?></button>
+        </td>
+        <td>
+          <a onclick="edit(<?php echo $lead['data_id'] ?>);" data-toggle="tooltip"
+             title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+          <a href="index.php?route=module/forms/delete&token=<?php echo $token?>&lead_id=<?php echo $lead['data_id']?>"
+             data-toggle="tooltip" title="Удалить" class="btn btn-primary"><i
+                    class="fa fa-eraser"></i></a>
+          <a onclick="save(<?php echo $lead['data_id'] ?>);" data-toggle="tooltip"
+             title="<?php echo $button_save; ?>" class="btn btn-primary hidden"><i
+                    class="fa fa-save"></i></a>
+          <form action="<?php echo $add; ?>" method="POST" id="add-<?php echo $num; ?>">
+            <?php
                 $customer_group_id = 1;
                 foreach ($forms_users as $user) {
                   if($lead['form_id'] == $user['form_id']){
@@ -71,31 +132,26 @@
                 }
                 $name = explode(' ', $lead['name']);
                ?>
-              <input type="hidden" name="customer_id" value="<?php echo $lead['customer_id']; ?>">
-              <input type="hidden" name="firstname" value="<?php echo $name[0]; ?>">
-              <input type="hidden" name="lastname" value="<?php echo (isset($name[1])?$name[1]:''); ?>">
-              <input type="hidden" name="email" value="<?php echo $lead['email']; ?>">
-              <input type="hidden" name="telephone" value="<?php echo $lead['telephone']; ?>">
-              <input type="hidden" name="customer_group_id" value="<?php echo $customer_group_id; ?>">
-              <a onclick="$('#add-<?php echo $num; ?>').submit();" data-toggle="tooltip" title="<?php echo $button_add; ?>" class="btn btn-primary"><i class="fa fa-plus"></i></a></div>
-            </form>
-          </td>
-        </tr>
-        <?php } ?>
-        <?php }else{ ?>
-          <tr>
-            <td class="text-center" colspan="8"><?php echo $text_no_results; ?></td>
-          </tr>
-        <?php } ?>
-      </tbody>
-      <tbody>
-        <tr>
-          <td colspan="8">
-            <a href="<?php echo $link_forms; ?>" class="btn btn-primary center-block"><?php echo $text_all; ?></a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <input type="hidden" name="customer_id" value="<?php echo $lead['customer_id']; ?>">
+            <input type="hidden" name="firstname" value="<?php echo $name[0]; ?>">
+            <input type="hidden" name="lastname" value="<?php echo $name[1]; ?>">
+            <input type="hidden" name="email" value="<?php echo $lead['email']; ?>">
+            <input type="hidden" name="telephone" value="<?php echo $lead['telephone']; ?>">
+            <input type="hidden" name="customer_group_id" value="<?php echo $customer_group_id; ?>">
+            <a onclick="$('#add-<?php echo $num; ?>').submit();" data-toggle="tooltip"
+               title="<?php echo $button_add; ?>" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+  </div>
+  </form>
+  </td>
+  </tr>
+  <?php } ?>
+  <?php }else{ ?>
+  <tr>
+    <td class="text-center" colspan="8"><?php echo $text_no_results; ?></td>
+  </tr>
+  <?php } ?>
+  </tbody>
+  </table>
   </div>
 <script>
 var status  = '<select name="status" id="status{{id}}" class="form-control">';
