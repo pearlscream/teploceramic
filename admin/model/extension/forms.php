@@ -118,7 +118,7 @@ class ModelExtensionForms extends Model {
 	}
 
 	public function getPhones($telephone) {
-		$query = $this->db->query("SELECT *, REPLACE(REPLACE(REPLACE(REPLACE(telephone,'-',''),' ',''),')',''),'(','') as phone FROM `" . DB_PREFIX . "forms_data` HAVING phone like '". $telephone ."%' ORDER BY `data_id` DESC");
+		$query = $this->db->query("SELECT *, REPLACE(REPLACE(REPLACE(REPLACE(telephone,'-',''),' ',''),')',''),'(','') as phone FROM `" . DB_PREFIX . "forms_data` HAVING phone like '". $telephone ."' ORDER BY `data_id` DESC");
 		$data = array();
 		foreach ($query->rows as $row) {
 			$data[] = array(
