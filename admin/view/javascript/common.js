@@ -35,11 +35,10 @@ $(document).ready(function() {
 			url: 'index.php?route=extension%2Fforms/phones&telephone=' + telephone + '&token=' + getURLVar('token'),
 			dataType: 'json',
 			success: function(json) {
-               // json = json.reverse();
+                json = json.reverse();
                 $.each(json,function (index,value) {
                     if (index != 0) {
                         var html = $('.table tbody tr:first-child').clone();
-						console.log(html);
                         $(html.children()[0]).html(value['form_id']);
                         $(html.children()[1]).html(value['name']);
                         $(html.children()[2]).html(value['email']);
@@ -67,7 +66,7 @@ $(document).ready(function() {
 						$($(html.children()[9]).children()[1]).attr('href', 'index.php?route=module/forms/delete&token=' + getURLVar('token') + '&lead_id=' + value['data_id']);
 						$($(html.children()[9]).children()[2]).attr('onclick', '').unbind('click');
 						$($(html.children()[9]).children()[2]).attr('id', 'save-btn-' + value['data_id']);
-                        html = "<tr class='open' id=lead" + value['data_id'] + ">" + html.html() + "</tr>";
+                        html = "<tr class='open open" + $(self.parent().parent()).attr('id') +"' id=lead" + value['data_id'] + ">" + html.html() + "</tr>";
                         self.parent().parent().after(html);
                         $('#edit-btn-' + value['data_id']).click(function () {
 							edit(value['data_id']);
@@ -86,7 +85,7 @@ $(document).ready(function() {
 		});
 
 		self.click(function (event) {
-				$('.open').toggle();
+			$('.open' + $(self.parent().parent()).attr('id')).toggle();
 		});
 
 	});
