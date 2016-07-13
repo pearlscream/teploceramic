@@ -90,6 +90,72 @@ $(document).ready(function() {
 
 	});
 
+	$('#smart-search').keyup(function (event) {
+		$.ajax({
+			url: 'index.php?route=extension%2Fforms/smart_search&telephone=' + $(this).val() + '&token=' + getURLVar('token'),
+			dataType: 'json',
+			success: function(json) {
+				var data = '';
+				$.each(json,function (index,value) {
+					data += "<div class='search-elem'>" + value['telephone'] + "</div>";
+				});
+				$('.search-box').html(data);
+				$('.search-box').show();
+				
+				$('.search-elem').on('click',function (event) {
+					$('#smart-search').val($(event.target).text().replace(/[^0-9]/gim,''));
+					$('.search-box').hide();
+					$('#smart-search').focus();
+				});
+			}
+		});
+	});
+
+	$('#smart-search').blur(function () {
+		$('.search-box').hide();
+	});
+
+	$('#smart-search').focus(function () {
+		$('.search-box').show();
+	});
+
+
+
+
+	$('#add-call-show').click(function (e) {
+		e.preventDefault();
+		$('#add-call-inputs').toggle();
+	});
+	$('#add-call').submit(function (e) {
+		e.preventDefault();
+//                    ga('send', 'event', 'button', 'click', $('#' + formname).find('input[name="form_id"]').val());
+		var name_error = $(this).find('input[name="name"]').attr('data-error');
+		var phone_error = $(this).find('input[name="telephone"]').attr('data-error');
+		var email = $(this).find('input[name="email"]').attr('data-error');
+
+		var date = new Date();
+		var curr_date = date.getDate();
+		var curr_month = date.getMonth() + 1;
+		var curr_year = date.getFullYear();
+		var curr_hours = date.getHours();
+		var curr_minutes = date.getMinutes();
+		date = curr_year + "-" + curr_month + "-" + curr_date + " " + curr_hours + ":" + curr_minutes;
+
+		console.log($(this).serialize() + '&date=' + date);
+		$.ajax({
+			url: '/index.php?route=module/forms/save',
+			type: 'post',
+			data: $(this).serialize() + '&date=' + date,
+			dataType: 'json',
+			success: function (json) {
+				location.reload();
+			},
+			error: function () {
+				alert('ОШИБКА. Запись не добавлена :( ');
+			}
+		});
+	});
+
 
 	//Form Submit for IE Browser
 	$('button[type=\'submit\']').on('click', function() {

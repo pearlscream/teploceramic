@@ -19,7 +19,7 @@ class ModelExtensionForms extends Model {
 //			$query = $this->db->query("SELECT *,COUNT(telephone) as treatment FROM `" . DB_PREFIX . "forms_data` where year(date) = year(now()) and week(date, 1) = week(now(), 1) GROUP BY telephone ORDER BY `data_id` DESC LIMIT " . (int)$limit['start'] . " , " . (int)$limit['end']);
 			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "forms_data`as data1,(SELECT telephone,MAX(data_id) as maxid,COUNT(telephone) as treatment FROM `" . DB_PREFIX . "forms_data` GROUP BY telephone) as data2 WHERE data2.telephone = data1.telephone AND data1.data_id = data2.maxid AND year(date) = year(now()) and week(date, 1) = week(now(), 1) ORDER BY `data_id` DESC LIMIT ".(int)$limit['start']." , ".(int)$limit['end']);
 		}
-		if (isset($date) && $date != '1970-01-01 03:00:00' && $date != '') {
+		if (isset($date) && $date != date("Y-m-d H:i:s",strtotime('')) && $date != '') {
 //			$query = $this->db->query("SELECT *,COUNT(telephone) as treatment FROM `" . DB_PREFIX . "forms_data` WHERE date_format(date, '%Y%m%d') = date_format('" . $date . "', '%Y%m%d') GROUP BY telephone ORDER BY `data_id` DESC LIMIT " . (int)$limit['start'] . " , " . (int)$limit['end']);
 			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "forms_data`as data1,(SELECT telephone,MAX(data_id) as maxid,COUNT(telephone) as treatment FROM `" . DB_PREFIX . "forms_data` GROUP BY telephone) as data2 WHERE data2.telephone = data1.telephone AND data1.data_id = data2.maxid AND date_format(date, '%Y%m%d') = date_format('" . $date . "', '%Y%m%d') ORDER BY `data_id` DESC LIMIT ".(int)$limit['start']." , ".(int)$limit['end']);
 		}
@@ -132,6 +132,18 @@ class ModelExtensionForms extends Model {
 				'add'         => unserialize($row['add']),
 				'status_id'   => $row['status_id'],
 				'comments'    => unserialize($row['comments']),
+			);
+		}
+		return $data;
+	}
+
+	public function getPhoneSearch($telephone) {
+		$query = $this->db->query("SELECT telephone, REPLACE(REPLACE(REPLACE(REPLACE(telephone,'-',''),' ',''),')',''),'(','') as phone FROM `" . DB_PREFIX . "forms_data` HAVING phone like '". $telephone ."%' ORDER BY `data_id` DESC LIMIT 1,10");
+		$data = array();
+		foreach ($query->rows as $row) {
+			$data[] = array(
+				'telephone'   => $row['telephone'],
+				
 			);
 		}
 		return $data;

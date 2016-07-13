@@ -27,9 +27,10 @@
             <form style="display: inline-block; position: absolute; right: 0;" action="<?php echo $url ?>" method="get">
                 <input type="hidden" name="route" value="<?php echo $route ?>">
                 <input type="hidden" name="token" value="<?php echo $token?>">
-                <input class="form-control" style="display:inline-block;  width: 305px" type="number" name="telephone"
-                       placeholder="номер телефона">
+                <input id='smart-search' class="form-control" style="display:inline-block;  width: 305px" type="number" name="telephone"
+                       placeholder="номер телефона" autocomplete="off">
                 <input class="btn-primary btn" type="submit" value="Телефон">
+                <div class="search-box"></div>
             </form>
             <div>
                 <div style="display: inline-block; margin-left: 5px">
@@ -88,6 +89,8 @@
                         <td class="text-center">Обращения</td>
                         <td><?php echo $text_actions; ?></td>
                     </tr>
+
+
                     </thead>
 
                     <tbody>
@@ -170,42 +173,7 @@
 
 
         <script>
-            $(document).ready(function () {
-                $('#add-call-show').click(function (e) {
-                    e.preventDefault();
-                    $('#add-call-inputs').toggle();
-                })
-                $('#add-call').submit(function (e) {
-                    e.preventDefault();
-//                    ga('send', 'event', 'button', 'click', $('#' + formname).find('input[name="form_id"]').val());
-                    var name_error = $(this).find('input[name="name"]').attr('data-error');
-                    var phone_error = $(this).find('input[name="telephone"]').attr('data-error');
-                    var email = $(this).find('input[name="email"]').attr('data-error');
 
-                    var date = new Date();
-                    var curr_date = date.getDate();
-                    var curr_month = date.getMonth() + 1;
-                    var curr_year = date.getFullYear();
-                    var curr_hours = date.getHours();
-                    var curr_minutes = date.getMinutes();
-                    date = curr_year + "-" + curr_month + "-" + curr_date + " " + curr_hours + ":" + curr_minutes;
-
-                    console.log($(this).serialize() + '&date=' + date);
-                    $.ajax({
-                        url: '/index.php?route=module/forms/save',
-                        type: 'post',
-                        data: $(this).serialize() + '&date=' + date,
-                        dataType: 'json',
-                        success: function (json) {
-                            location.reload();
-                            console.log($(this).serialize());
-                        },
-                        error: function () {
-                            alert('ОШИБКА. Запись не добавлена :( ');
-                        }
-                    });
-                });
-            });
         </script>
         <script>
             var status = '<select name="status" id="status{{id}}" class="form-control">';

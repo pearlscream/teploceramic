@@ -137,4 +137,12 @@ class ControllerExtensionForms extends Controller {
 		$json = json_encode($data['leads']);
 		$this->response->setOutput($json);
 	}
+
+	public function smart_search() {
+		$telephone = $this->request->get['telephone'];
+		$this->load->model('extension/forms');
+		$data = $this->model_extension_forms->getPhoneSearch($telephone);
+		$json = json_encode($data);
+		$this->response->setOutput($json);
+	}
 }
