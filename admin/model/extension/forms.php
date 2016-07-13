@@ -138,12 +138,11 @@ class ModelExtensionForms extends Model {
 	}
 
 	public function getPhoneSearch($telephone) {
-		$query = $this->db->query("SELECT telephone, REPLACE(REPLACE(REPLACE(REPLACE(telephone,'-',''),' ',''),')',''),'(','') as phone FROM `" . DB_PREFIX . "forms_data` HAVING phone like '". $telephone ."%' ORDER BY `data_id` DESC LIMIT 1,10");
+		$query = $this->db->query("SELECT telephone, REPLACE(REPLACE(REPLACE(REPLACE(telephone,'-',''),' ',''),')',''),'(','') as phone FROM `" . DB_PREFIX . "forms_data` HAVING phone like '". $telephone ."%' ORDER BY `data_id` DESC LIMIT 0,10");
 		$data = array();
 		foreach ($query->rows as $row) {
 			$data[] = array(
 				'telephone'   => $row['telephone'],
-				
 			);
 		}
 		return $data;

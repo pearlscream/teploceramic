@@ -26,6 +26,7 @@ function getURLVar(key) {
 
 
 $(document).ready(function() {
+
 	$('.treatment-btn').click(function (event) {
 		var self = $(this);
 		var telephone = $(self.parent().parent().children()[3]).text();
@@ -102,7 +103,7 @@ $(document).ready(function() {
 				$('.search-box').html(data);
 				$('.search-box').show();
 				
-				$('.search-elem').on('click',function (event) {
+				$('.search-elem').on('mousedown',function (event) {
 					$('#smart-search').val($(event.target).text().replace(/[^0-9]/gim,''));
 					$('.search-box').hide();
 					$('#smart-search').focus();
@@ -111,7 +112,7 @@ $(document).ready(function() {
 		});
 	});
 
-	$('#smart-search').blur(function () {
+	$('#smart-search').focusout(function (event) {
 		$('.search-box').hide();
 	});
 
