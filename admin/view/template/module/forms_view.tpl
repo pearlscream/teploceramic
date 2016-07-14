@@ -283,6 +283,7 @@
         $('#lead' + data_id).html(oldLead.html());
         console.log(oldLead);
         alert('Копия успешно добавлена');
+        window.location.href='index.php?route=common/dashboard&token=<?php echo $token; ?>'
       },
       error: function () {
         alert('ОШИБКА. Запись не добавлена :( ');
