@@ -616,10 +616,12 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
     visibility: unset;
 }
 
-.filters form input{
+.filters form .form-control{
 	margin: 4px;
 }
-
+.filters .btn {
+	margin: 2px;
+}
 .open {
 	background: #e8e8e8;
 }
@@ -631,10 +633,43 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 	background:white;
 	width: 305px;
 	left:5px;
+	bottom: -140px;
 }
 
 .search-elem:hover{
 	cursor: pointer;
 	background: yellow;
 }
-/* Menu Fix For System -> Layout -> Banner */
+.filters-embed {
+	padding: 16px;	
+}
+.flex-row {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: space-between;
+}
+.full-width {
+	width: 100%;
+}
+.filter-phone {
+	position: relative;
+}
+#smart-search {
+	width: 70%;
+}
+.action-buttons-wrapper .btn{
+	width: 40px;
+	
+	margin: 2px;
+}
+.action-buttons-wrapper {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: space-between;
+}
