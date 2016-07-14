@@ -24,9 +24,10 @@
       <form style="display: inline-block; position: absolute; right: 0;" action="<?php echo $url ?>" method="get">
         <input type="hidden" name="route" value="<?php echo $route ?>">
         <input type="hidden" name="token" value="<?php echo $token?>">
-        <input class="form-control" style="display:inline-block;  width: 305px" type="number" name="telephone"
-               placeholder="номер телефона">
+        <input id='smart-search' class="form-control" style="display:inline-block;  width: 305px" type="number" name="telephone"
+               placeholder="номер телефона" autocomplete="off">
         <input class="btn-primary btn" type="submit" value="Телефон">
+        <div class="search-box"></div>
       </form>
       <div>
         <div style="display: inline-block; margin-left: 5px">
@@ -75,6 +76,8 @@
         <td class="text-center">Обращения</td>
         <td><?php echo $text_actions; ?></td>
       </tr>
+
+
       </thead>
 
       <tbody>
@@ -82,9 +85,9 @@
       <?php foreach ($leads as $num => $lead){ ?>
       <tr id="lead<?php echo $lead['data_id'] ?>">
         <td><?php echo $lead['form_id']; ?></td>
-        <td><?php echo $lead['name']; ?></td>
-        <td><a href="mailto:<?php echo $lead['email']; ?>"><?php echo $lead['email']; ?></a></td>
-        <td><a href="tel:<?php echo $lead['telephone']; ?>"><?php echo $lead['telephone']; ?></a></td>
+        <td class="name"><?php echo $lead['name']; ?></td>
+        <td class="email"><a href="mailto:<?php echo $lead['email']; ?>"><?php echo $lead['email']; ?></a></td>
+        <td class="telephone"><a href="tel:<?php echo $lead['telephone']; ?>"><?php echo $lead['telephone']; ?></a></td>
         <td><?php echo $lead['date']; ?></td>
         <td class="text-center status"><span class="label"
                                              data-status="<?php echo $lead['status_id']; ?>"
@@ -120,9 +123,14 @@
              data-toggle="tooltip" title="Удалить" class="btn btn-primary"><i
                     class="fa fa-eraser"></i></a>
           <a onclick="save(<?php echo $lead['data_id'] ?>);" data-toggle="tooltip"
-             title="<?php echo $button_save; ?>" class="btn btn-primary hidden"><i
+             title="<?php echo $button_save; ?>" class="save btn btn-primary hidden"><i
                     class="fa fa-save"></i></a>
-          <form action="<?php  echo $add; ?>" method="POST" id="add-<?php echo $num; ?>">
+          <a onclick="saveCopy(<?php echo $lead['data_id'] ?>);" data-toggle="tooltip"
+             title="Сохранить копию" class="save-copy btn btn-primary hidden"><i
+                    class="fa fa-save"></i></a>
+          <a onclick="copy(<?php echo $lead['data_id'] ?>);" data-toggle="tooltip"
+             title="Копировать" class="btn btn-primary"><i class="fa fa-copy"></i></a>
+          <form action="<?php echo $add; ?>" method="POST" id="add-<?php echo $num; ?>">
             <?php
                 $customer_group_id = 1;
                 foreach ($forms_users as $user) {
@@ -154,26 +162,54 @@
   </table>
   </div>
 <script>
-var status  = '<select name="status" id="status{{id}}" class="form-control">';
-<?php foreach($statuses as $status){ ?>
+  var status = '<select name="status" id="status{{id}}" class="form-control">';
+  <?php foreach($statuses as $status) { ?>
     status += '<option value="<?php echo $status['status_id']; ?>"><?php echo $status['title'][$lang]; ?></option>';
-<?php } ?>
-    status += '</select>';
-var comment = '<textarea name="comment" id="comment{{id}}" class="form-control"></textarea>';
-  function edit(data_id){
+  <?php } ?>
+  status += '</select>';
+  var comment = '<textarea name="comment" id="comment{{id}}" class="form-control"></textarea>';
+  function edit(data_id) {
     // console.log(data_id);
-    var lead = $('#lead'+data_id);
+    var lead = $('#lead' + data_id);
     var stat = lead.find('.label').attr('data-status');
-    lead.find('.status').html(status.replace('{{id}}',data_id));
-    lead.find('#status'+data_id).val(stat);
-    lead.find('.comment').append(comment.replace('{{id}}',data_id));
+    lead.find('.status').html(status.replace('{{id}}', data_id));
+    lead.find('#status' + data_id).val(stat);
+    lead.find('.comment').append(comment.replace('{{id}}', data_id));
     lead.find('a.btn').toggleClass('hidden');
+    lead.find('.save-copy').toggleClass('hidden');
     // console.log(lead.find('#status').val());
   }
-  function save(data_id){
-    var lead = $('#lead'+data_id);
-    console.log(lead.find('#status'+data_id).val());
-    console.log(lead.find('#commentcomment'+data_id).val());
+  var oldLead = '';
+  function copy(data_id) {
+    console.log(data_id);
+    var lead = $('#lead' + data_id);
+    oldLead = lead.clone();
+    var telephone = "<input type='text' id='telephone" + data_id + "' value='" + lead.find('.telephone a').html() + "'>";
+    var name = "<input type='text' id='name" + data_id + "' value='" + lead.find('.name').html() + "'>";
+    var email = "<input type='email' id='email" + data_id + "' value='" + lead.find('.email a').html() + "'>";
+    var stat = lead.find('.label').attr('data-status');
+    lead.find('.status').html(status.replace('{{id}}', data_id));
+    lead.find('#status' + data_id).val(stat);
+    lead.find('.comment').append(comment.replace('{{id}}', data_id));
+    lead.find('.name').html(name);
+    lead.find('.email').html(email);
+    lead.find('.telephone').html(telephone);
+    lead.find('a.btn').toggleClass('hidden');
+    lead.find('.save').toggleClass("hidden");
+    // console.log(lead.find('#status').val());
+  }
+  function save(data_id) {
+    var date = new Date();
+    var curr_date = date.getDate();
+    var curr_month = date.getMonth() + 1;
+    var curr_year = date.getFullYear();
+    var curr_hours = date.getHours();
+    var curr_minutes = date.getMinutes();
+    date = curr_year + "-" + curr_month + "-" + curr_date + " " + curr_hours + ":" + curr_minutes;
+
+    var lead = $('#lead' + data_id);
+    console.log(lead.find('#status' + data_id).val());
+    console.log(lead.find('#commentcomment' + data_id).val());
 
 
     $.ajax({
@@ -181,11 +217,12 @@ var comment = '<textarea name="comment" id="comment{{id}}" class="form-control">
       type: 'post',
       data: {
         'data_id': data_id,
-        'status':  lead.find('#status'+data_id).val(),
-        'comment': lead.find('#comment'+data_id).val(),
+        'status': lead.find('#status' + data_id).val(),
+        'comment': lead.find('#comment' + data_id).val(),
+        'date' : date,
       },
       dataType: 'json',
-      success: function(data) {
+      success: function (data) {
         console.log(data);
         if (data.e == 'error') {
           console.log(data.error);
@@ -194,11 +231,51 @@ var comment = '<textarea name="comment" id="comment{{id}}" class="form-control">
           lead.find('.status').html(data.status);
           lead.find('.comment').html(data.comment);
           lead.find('a.btn').toggleClass('hidden');
+          lead.find('.save-copy').toggleClass("hidden");
         }
       },
-      error: function(xhr, ajaxOptions, thrownError) {
+      error: function (xhr, ajaxOptions, thrownError) {
         alert('error: ' + thrownError);
       }
+    });
+  }
+
+  function saveCopy(data_id) {
+    var date = new Date();
+    var curr_date = date.getDate();
+    var curr_month = date.getMonth() + 1;
+    var curr_year = date.getFullYear();
+    var curr_hours = date.getHours();
+    var curr_minutes = date.getMinutes();
+    date = curr_year + "-" + curr_month + "-" + curr_date + " " + curr_hours + ":" + curr_minutes;
+
+    var lead = $('#lead' + data_id);
+    console.log(lead.find('#status' + data_id).val());
+    console.log(lead.find('#commentcomment' + data_id).val());
+
+
+    $.ajax({
+      url: '/index.php?route=module/forms/save',
+      type: 'post',
+      data: {
+        'name' : lead.find('#name' + data_id).val(),
+        'email': lead.find('#email' + data_id).val(),
+        'telephone' : lead.find('#telephone' + data_id).val(),
+        'form_id':'call',
+        'status': lead.find('#status' + data_id).val(),
+        'comment': lead.find('#comment' + data_id).val(),
+        'date' : date,
+      },
+      dataType: 'json',
+      success: function (data) {
+        console.log(data);
+        $('#lead' + data_id).html(oldLead.html());
+        console.log(oldLead);
+        alert('Копия успешно добавлена');
+      },
+      error: function () {
+        alert('ОШИБКА. Запись не добавлена :( ');
+      },
     });
   }
 </script>

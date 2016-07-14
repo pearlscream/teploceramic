@@ -106,10 +106,31 @@ class ModelExtensionForms extends Model {
 			$comments[date ("Y-m-d H:i:s", time())] = $data['comment'];
 			$this->db->query("UPDATE `" . DB_PREFIX . "forms_data` SET status_id = '".(int)$data['status'] . "', date = '" . $data['date'] . "', comments = '" . serialize($comments) . "' WHERE data_id = '".(int)$data['data_id']."'");
 		}else{
-			$this->db->query("UPDATE `" . DB_PREFIX . "forms_data` SET date = '".$data['date'] .",status_id = '".(int)$data['status']."' WHERE data_id = '".(int)$data['data_id']."'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "forms_data` SET date = '".$data['date'] ."',status_id = '".(int)$data['status']."' WHERE data_id = '".(int)$data['data_id']."'");
 		}
 
 		return $comments;
+	}
+
+	public function addData($data) {
+
+		$forms_users = $this->config->get('forms_user');
+		$customer_group_id = 1;
+		foreach ($forms_users as $user) {
+			if($data['form_id'] == $user['form_id']){
+				$customer_group_id = $user['customer_group_id'];
+			}
+		}
+		$name = explode(' ', $data['name']);
+
+		//add customer
+		$this->db->query("INSERT INTO " . DB_PREFIX . "customer SET customer_group_id = '" . (int)$customer_group_id . "', store_id = '" . (int)$this->config->get('config_store_id') . "', firstname = '" . $this->db->escape($name[0]) . "', lastname = '" . (isset($name[1])?$this->db->escape($name[1]):'') . "', email = '" . (isset($data['email'])?$this->db->escape($data['email']):'') . "', telephone = '" . $this->db->escape($data['telephone']) . "', salt = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1('Pa$$w0rd')))) . "', newsletter = '0', ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', status = '1', approved = '1', date_added = NOW()");
+
+		$customer_id = $this->db->getLastId();
+
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "forms_data` SET `form_id` = '" . $this->db->escape($data['form_id']) . "', `customer_id` = '" . (int)$customer_id . "', `email` = '" . (isset($data['email'])?$this->db->escape($data['email']):'') . "', `name` = '" . $this->db->escape($data['name']) . "', `date` = '" . $this->db->escape($data['date'])  . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `add` = '" . (isset($data['add'])?$this->db->escape(serialize($data['add'])):'') . "'");
+
+		return true;
 	}
 
 	public function removeData($lead_id) {
@@ -118,7 +139,7 @@ class ModelExtensionForms extends Model {
 	}
 
 	public function getPhones($telephone) {
-		$query = $this->db->query("SELECT *, REPLACE(REPLACE(REPLACE(REPLACE(telephone,'-',''),' ',''),')',''),'(','') as phone FROM `" . DB_PREFIX . "forms_data` HAVING phone like '". $telephone ."' ORDER BY `data_id` DESC");
+		$query = $this->db->query("SELECT *, REPLACE(REPLACE(REPLACE(REPLACE(telephone,'-',''),' ',''),')',''),'(','') as phone FROM `" . DB_PREFIX . "forms_data` HAVING phone like '". $telephone ."' ORDER BY `data_id` ASC");
 		$data = array();
 		foreach ($query->rows as $row) {
 			$data[] = array(

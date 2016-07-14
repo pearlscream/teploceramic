@@ -16,7 +16,22 @@ class ModelModuleForms extends Model {
 
   $customer_id = $this->db->getLastId();
 
-  $this->db->query("INSERT INTO `" . DB_PREFIX . "forms_data` SET `form_id` = '" . $this->db->escape($data['form_id']) . "', `customer_id` = '" . (int)$customer_id . "', `email` = '" . (isset($data['email'])?$this->db->escape($data['email']):'') . "', `name` = '" . $this->db->escape($data['name']) . "', `date` = '" . $this->db->escape($data['date'])  . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `add` = '" . (isset($data['add'])?$this->db->escape(serialize($data['add'])):'') . "'");
+
+  $comment = $this->db->query("SELECT comments FROM `" . DB_PREFIX . "forms_data` WHERE `data_id` = '".(int)$data['data_id']."'");
+
+  $comments = array();
+  if(isset($comment->row['comments'])){
+   $comments = unserialize($comment->row['comments']);
+  }
+
+  if(!empty($data['comment'])){
+
+   $comments[date ("Y-m-d H:i:s", time())] = $data['comment'];
+   $this->db->query("INSERT INTO `" . DB_PREFIX . "forms_data` SET `form_id` = '" . $this->db->escape($data['form_id']) . "', `customer_id` = '" . (int)$customer_id . "', `email` = '" . (isset($data['email'])?$this->db->escape($data['email']):'') . "', `name` = '" . $this->db->escape($data['name']) . "', `date` = '" . $this->db->escape($data['date'])  . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', comments = '" . serialize($comments) . "',status_id = '".(int)$data['status']."', `add` = '" . (isset($data['add'])?$this->db->escape(serialize($data['add'])):'') . "'");
+  } else {
+    $this->db->query("INSERT INTO `" . DB_PREFIX . "forms_data` SET `form_id` = '" . $this->db->escape($data['form_id']) . "', `customer_id` = '" . (int)$customer_id . "', `email` = '" . (isset($data['email']) ? $this->db->escape($data['email']) : '') . "', `name` = '" . $this->db->escape($data['name']) . "', `date` = '" . $this->db->escape($data['date']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "',status_id = '" . (int)$data['status'] . "', `add` = '" . (isset($data['add']) ? $this->db->escape(serialize($data['add'])) : '') . "'");
+  }
+
 
   // Send to main admin email if new account email is enabled
   if ($this->config->get('config_account_mail')) {

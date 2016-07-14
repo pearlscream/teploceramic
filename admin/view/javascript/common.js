@@ -36,14 +36,14 @@ $(document).ready(function() {
 			url: 'index.php?route=extension%2Fforms/phones&telephone=' + telephone + '&token=' + getURLVar('token'),
 			dataType: 'json',
 			success: function(json) {
-                json = json.reverse();
+               console.log(json.length);
                 $.each(json,function (index,value) {
-                    if (index != 0) {
+                    if (index != json.length-1) {
                         var html = $('.table tbody tr:first-child').clone();
                         $(html.children()[0]).html(value['form_id']);
                         $(html.children()[1]).html(value['name']);
-                        $(html.children()[2]).html(value['email']);
-                        $(html.children()[3]).html(value['telephone']);
+                        $(html.find('.email a')).html(value['email']);
+                        $(html.find('.telephone a')).html(value['telephone']);
                         $(html.children()[4]).html(value['date']);
 						$(html.children()[5]).html(value['status']);
 						var add = "<dl class='dl-horizontal'>";
@@ -67,6 +67,8 @@ $(document).ready(function() {
 						$($(html.children()[9]).children()[1]).attr('href', 'index.php?route=module/forms/delete&token=' + getURLVar('token') + '&lead_id=' + value['data_id']);
 						$($(html.children()[9]).children()[2]).attr('onclick', '').unbind('click');
 						$($(html.children()[9]).children()[2]).attr('id', 'save-btn-' + value['data_id']);
+						$($(html.children()[9]).children()[3]).attr('id', 'save-copy-btn-' + value['data_id']);
+						$($(html.children()[9]).children()[4]).attr('id', 'copy-btn-' + value['data_id']);
                         html = "<tr class='open open" + $(self.parent().parent()).attr('id') +"' id=lead" + value['data_id'] + ">" + html.html() + "</tr>";
                         self.parent().parent().after(html);
                         $('#edit-btn-' + value['data_id']).click(function () {
@@ -75,8 +77,11 @@ $(document).ready(function() {
 						$('#save-btn-' + value['data_id']).click(function () {
 							save(value['data_id']);
 						});
-						$('#delete-btn-' + value['data_id']).click(function () {
-							edit(value['data_id']);
+						$('#save-copy-btn-' + value['data_id']).click(function () {
+							saveCopy(value['data_id']);
+						});
+						$('#copy-btn-' + value['data_id']).click(function () {
+							copy(value['data_id']);
 						});
                         // console.log('hello');
                     } });

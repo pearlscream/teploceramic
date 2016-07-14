@@ -128,7 +128,7 @@ class ControllerModuleForms extends Controller {
 		$data['statuses'] = $this->config->get('forms');
 		$data['lang'] = $this->config->get('config_language_id');
 
-		if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
+			if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
 			$comments = $this->model_extension_forms->editData($this->request->post);
 			$status   = '<span class="label" data-status="' . $this->request->post['status'] . '" style="background: ' . $data['statuses'][$this->request->post['status']]['bg'] . '; color: ' . $data['statuses'][$this->request->post['status']]['color'] . ';">'.$data['statuses'][$this->request->post['status']]['title'][$data['lang']].'</span>';
 			$comment  = '<dl class="dl-horizontal">';
@@ -203,6 +203,7 @@ class ControllerModuleForms extends Controller {
 
 		return $this->load->view('module/forms_view.tpl', $data);
 	}
+	
 
 	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'module/forms')) {
