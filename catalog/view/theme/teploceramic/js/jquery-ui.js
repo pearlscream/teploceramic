@@ -13,7 +13,7 @@
 		// Browser globals
 		factory( jQuery );
 	}
-}(function( $ ) {
+}(function( $ ) { 
 /*!
  * jQuery UI Core 1.11.4
  * http://jqueryui.com

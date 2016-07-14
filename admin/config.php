@@ -26,6 +26,6 @@ define('DB_DRIVER', 'mysqli');
 define('DB_HOSTNAME', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
-define('DB_DATABASE', 'teplocer');
-define('DB_PREFIX', 'la_');
+define('DB_DATABASE', 'sunway');
+define('DB_PREFIX', '');
 
