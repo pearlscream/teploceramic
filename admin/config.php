@@ -1,31 +1,31 @@
 <?php
 // HTTP
-define('HTTP_SERVER', 'http://sunway/admin/');
-define('HTTP_CATALOG', 'http://sunway/');
+define('HTTP_SERVER', 'http://teploceramic/admin/');
+define('HTTP_CATALOG', 'http://teploceramic/');
 
 // HTTPS
-define('HTTPS_SERVER', 'http://sunway/admin/');
-define('HTTPS_CATALOG', 'http://sunway/');
+define('HTTPS_SERVER', 'http://teploceramic/admin/');
+define('HTTPS_CATALOG', 'http://teploceramic/');
 
 // DIR
-define('DIR_APPLICATION', 'c:/OpenServer/domains/sunway/admin/');
-define('DIR_SYSTEM', 'c:/OpenServer/domains/sunway/system/');
-define('DIR_LANGUAGE', 'c:/OpenServer/domains/sunway/admin/language/');
-define('DIR_TEMPLATE', 'c:/OpenServer/domains/sunway/admin/view/template/');
-define('DIR_CONFIG', 'c:/OpenServer/domains/sunway/system/config/');
-define('DIR_IMAGE', 'c:/OpenServer/domains/sunway/image/');
-define('DIR_CACHE', 'c:/OpenServer/domains/sunway/system/cache/');
-define('DIR_DOWNLOAD', 'c:/OpenServer/domains/sunway/system/download/');
-define('DIR_UPLOAD', 'c:/OpenServer/domains/sunway/system/upload/');
-define('DIR_LOGS', 'c:/OpenServer/domains/sunway/system/logs/');
-define('DIR_MODIFICATION', 'c:/OpenServer/domains/sunway/system/modification/');
-define('DIR_CATALOG', 'c:/OpenServer/domains/sunway/catalog/');
+define('DIR_APPLICATION', 'c:/OpenServer/domains/teploceramic/admin/');
+define('DIR_SYSTEM', 'c:/OpenServer/domains/teploceramic/system/');
+define('DIR_LANGUAGE', 'c:/OpenServer/domains/teploceramic/admin/language/');
+define('DIR_TEMPLATE', 'c:/OpenServer/domains/teploceramic/admin/view/template/');
+define('DIR_CONFIG', 'c:/OpenServer/domains/teploceramic/system/config/');
+define('DIR_IMAGE', 'c:/OpenServer/domains/teploceramic/image/');
+define('DIR_CACHE', 'c:/OpenServer/domains/teploceramic/system/cache/');
+define('DIR_DOWNLOAD', 'c:/OpenServer/domains/teploceramic/system/download/');
+define('DIR_UPLOAD', 'c:/OpenServer/domains/teploceramic/system/upload/');
+define('DIR_LOGS', 'c:/OpenServer/domains/teploceramic/system/logs/');
+define('DIR_MODIFICATION', 'c:/OpenServer/domains/teploceramic/system/modification/');
+define('DIR_CATALOG', 'c:/OpenServer/domains/teploceramic/catalog/');
 
 // DB
 define('DB_DRIVER', 'mysqli');
 define('DB_HOSTNAME', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
-define('DB_DATABASE', 'sunway');
-define('DB_PREFIX', '');
+define('DB_DATABASE', 'teplocer');
+define('DB_PREFIX', 'la_');
 

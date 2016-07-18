@@ -74,7 +74,7 @@ class ModelExtensionForms extends Model {
 			$query = $this->db->query("SELECT count(DISTINCT  telephone) as total FROM `" . DB_PREFIX . "forms_data` where form_id = " . $filter . " `data_id` DESC");
 		}
 
-		if (isset($date) && $date != '1970-01-01 03:00:00') {
+		if (isset($date) && $date != date("Y-m-d H:i:s",strtotime('')) && $date != '') {
 			$query = $this->db->query("SELECT count(DISTINCT  telephone) as total FROM `" . DB_PREFIX . "forms_data` WHERE date_format(date, '%Y%m%d') = date_format('" . $date . "', '%Y%m%d') DESC");
 		}
 
@@ -139,7 +139,7 @@ class ModelExtensionForms extends Model {
 	}
 
 	public function getPhones($telephone) {
-		$query = $this->db->query("SELECT *, REPLACE(REPLACE(REPLACE(REPLACE(telephone,'-',''),' ',''),')',''),'(','') as phone FROM `" . DB_PREFIX . "forms_data` HAVING phone like '". $telephone ."' ORDER BY `data_id` ASC");
+		$query = $this->db->query("SELECT *, REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(telephone,'_',''),'-',''),' ',''),')',''),'(','') as phone FROM `" . DB_PREFIX . "forms_data` HAVING phone like '". $telephone ."' ORDER BY `data_id` ASC");
 		$data = array();
 		foreach ($query->rows as $row) {
 			$data[] = array(
