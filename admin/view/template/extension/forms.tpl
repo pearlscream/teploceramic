@@ -16,7 +16,9 @@
                 <input type="hidden" name="route" value="<?php echo $route ?>">
                 <input type="hidden" name="token" value="<?php echo $token?>">
                 <input class="form-control" style="display: inline-block; width: 70%" type="datetime-local"
-                       id="date-filter" name="date" value="<?php echo date('Y-m-d\Tg:i:s')?>">
+                       id="date-filter" name="date_start" value="<?php echo date('Y-m-d\TH:i:s')?>">
+                <input class="form-control" style="display: inline-block; width: 70%" type="datetime-local"
+                       id="date-filter" name="date_end" value="<?php echo date('Y-m-d\TH:i:s')?>">
                 <input class="btn-primary btn" style="display: inline-block" type="submit" value="Фильтр">
             </form>
             <form style="display: inline-block" action="<?php echo $url ?>" method="get">

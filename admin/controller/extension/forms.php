@@ -65,8 +65,8 @@ class ControllerExtensionForms extends Controller {
 
 		$data['url'] = $this->url->link('extension/forms', 'token=' . $this->session->data['token'], 'SSL');
 		$data['route'] = 'extension/forms';
-		$date = date("Y-m-d H:i:s",strtotime($this->request->get['date']));
-		$data['test'] = date("Y-m-d H:i:s",strtotime($this->request->get['date']));
+		$date_start = date("Y-m-d H:i:s",strtotime($this->request->get['date_start']));
+		$date_end = date("Y-m-d H:i:s",strtotime($this->request->get['date_end']));
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], 'SSL')
@@ -98,10 +98,10 @@ class ControllerExtensionForms extends Controller {
 
 		$filter = $this->request->get['filter'];
 		$telephone = $this->request->get['telephone'];
-		$data['leads'] = $this->model_extension_forms->getData($limit,$filter,$date,$telephone);
+		$data['leads'] = $this->model_extension_forms->getData($limit,$filter,$date_start,$date_end,$telephone);
 //		print_r($data['leads']);
 //		exit;
-		$data_total = $this->model_extension_forms->getTotalData($filter,$date,$telephone);
+		$data_total = $this->model_extension_forms->getTotalData($filter,$date_start,$date_end,$telephone);
 
 		$data['add'] = $this->url->link('sale/order/add', 'token=' . $this->session->data['token'], 'SSL');
 		$data['forms_users'] = $this->config->get('forms_user');

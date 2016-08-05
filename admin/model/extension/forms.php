@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionForms extends Model {
-	public function getData($limit,$filter,$date,$telephone) {
+	public function getData($limit,$filter,$date_start,$date_end,$telephone) {
 
 		//SELECT * FROM `la_forms_data` as data1,(SELECT telephone,MAX(data_id) as maxid,COUNT(telephone) as tratment FROM `la_forms_data` GROUP BY telephone) as data2 WHERE data2.telephone = data1.telephone AND data1.data_id = data2.maxid ORDER BY `data_id` DESC
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "forms_data`as data1,(SELECT telephone,MAX(data_id) as maxid,COUNT(telephone) as treatment FROM `" . DB_PREFIX . "forms_data` GROUP BY telephone) as data2 WHERE data2.telephone = data1.telephone AND data1.data_id = data2.maxid ORDER BY `data_id` DESC LIMIT ".(int)$limit['start']." , ".(int)$limit['end']);
@@ -19,9 +19,9 @@ class ModelExtensionForms extends Model {
 //			$query = $this->db->query("SELECT *,COUNT(telephone) as treatment FROM `" . DB_PREFIX . "forms_data` where year(date) = year(now()) and week(date, 1) = week(now(), 1) GROUP BY telephone ORDER BY `data_id` DESC LIMIT " . (int)$limit['start'] . " , " . (int)$limit['end']);
 			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "forms_data`as data1,(SELECT telephone,MAX(data_id) as maxid,COUNT(telephone) as treatment FROM `" . DB_PREFIX . "forms_data` GROUP BY telephone) as data2 WHERE data2.telephone = data1.telephone AND data1.data_id = data2.maxid AND year(date) = year(now()) and week(date, 1) = week(now(), 1) ORDER BY `data_id` DESC LIMIT ".(int)$limit['start']." , ".(int)$limit['end']);
 		}
-		if (isset($date) && $date != date("Y-m-d H:i:s",strtotime('')) && $date != '') {
+		if (isset($date_start) && $date_start != date("Y-m-d H:i:s",strtotime('')) && $date_end != '') {
 //			$query = $this->db->query("SELECT *,COUNT(telephone) as treatment FROM `" . DB_PREFIX . "forms_data` WHERE date_format(date, '%Y%m%d') = date_format('" . $date . "', '%Y%m%d') GROUP BY telephone ORDER BY `data_id` DESC LIMIT " . (int)$limit['start'] . " , " . (int)$limit['end']);
-			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "forms_data`as data1,(SELECT telephone,MAX(data_id) as maxid,COUNT(telephone) as treatment FROM `" . DB_PREFIX . "forms_data` GROUP BY telephone) as data2 WHERE data2.telephone = data1.telephone AND data1.data_id = data2.maxid AND date_format(date, '%Y%m%d') = date_format('" . $date . "', '%Y%m%d') ORDER BY `data_id` DESC LIMIT ".(int)$limit['start']." , ".(int)$limit['end']);
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "forms_data`as data1,(SELECT telephone,MAX(data_id) as maxid,COUNT(telephone) as treatment FROM `" . DB_PREFIX . "forms_data` GROUP BY telephone) as data2 WHERE data2.telephone = data1.telephone AND data1.data_id = data2.maxid AND date_format(date, '%Y%m%d') >= date_format('" . $date_start . "', '%Y%m%d') AND date_format(date, '%Y%m%d') <= date_format('" . $date_end . "', '%Y%m%d') ORDER BY `data_id` DESC LIMIT ".(int)$limit['start']." , ".(int)$limit['end']);
 		}
 
 		if ($filter == 'get_back(1)' || $filter == 'get_back(2)' || $filter == "middle_form" || $filter == "have_question" || $filter == "call" || $filter == "order") {
@@ -36,7 +36,8 @@ class ModelExtensionForms extends Model {
 			$query = $this->db->query("SELECT *, REPLACE(REPLACE(REPLACE(REPLACE(telephone,'-',''),' ',''),')',''),'(','') as phone,COUNT(telephone) as treatment FROM `" . DB_PREFIX . "forms_data` GROUP BY telephone HAVING phone like '". $telephone ."%' ORDER BY `data_id` DESC");
 		}
 //		$query = $this->db->query("select * from `la_forms_data` where date_format(date, '%Y%m') = date_format(now(), '%Y%m')");
-		
+
+
 		$data = array();
 		foreach ($query->rows as $row) {
 			$data[] = array(
@@ -56,7 +57,7 @@ class ModelExtensionForms extends Model {
 // print_r(unserialize($row['comments']));
 		return $data;
 	}
-	public function getTotalData($filter, $date,$telephone) {
+	public function getTotalData($filter, $date_start,$date_end,$telephone) {
 		$query = $this->db->query("SELECT count(DISTINCT  telephone) as total FROM `" . DB_PREFIX . "forms_data`");
 
 		if ($filter == 'month') {
@@ -73,8 +74,9 @@ class ModelExtensionForms extends Model {
 			$query = $this->db->query("SELECT count(DISTINCT  telephone) as total FROM `" . DB_PREFIX . "forms_data` where form_id = " . $filter . " `data_id` DESC");
 		}
 
-		if (isset($date) && $date != date("Y-m-d H:i:s",strtotime('')) && $date != '') {
-			$query = $this->db->query("SELECT count(DISTINCT  telephone) as total FROM `" . DB_PREFIX . "forms_data` WHERE date_format(date, '%Y%m%d') = date_format('" . $date . "', '%Y%m%d') DESC");
+		if (isset($date_start) && $date_start != date("Y-m-d H:i:s",strtotime('')) && $date_end != '') {
+			$query = $this->db->query("SELECT count(DISTINCT  telephone) as total FROM `" . DB_PREFIX . "forms_data` WHERE date_format(date, '%Y%m%d') >= date_format('" . $date_start . "', '%Y%m%d') AND date_format(date, '%Y%m%d') <= date_format('" . $date_end . "', '%Y%m%d')");
+
 		}
 
 		if ($filter == 'get_back(1)' || $filter == 'get_back(2)' || $filter == "middle_form" || $filter == "have_question" || $filter == "call" || $filter == "order") {
