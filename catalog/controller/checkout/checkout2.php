@@ -215,7 +215,14 @@ class ControllerCheckoutCheckout2 extends Controller
 				$order_data['form_id'] = "order";
                 $order_data['name'] = $order_data['firstname'];
 				$this->load->model('module/forms');
+
+                $add_info['name'] = $order_data['products'][0]['name'];
+                $add_info['model'] = $order_data['products'][0]['model'];
+                $add_info['quantity'] = $order_data['products'][0]['quantity'];
+                $add_info['total'] = $order_data['products'][0]['total'];
+                $order_data['add'] = $add_info;
 				$this->model_module_forms->addData($order_data);
+
 			$data['text_recurring_item'] = $this->language->get('text_recurring_item');
 			$data['text_payment_recurring'] = $this->language->get('text_payment_recurring');
 

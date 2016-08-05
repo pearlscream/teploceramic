@@ -99,6 +99,8 @@ class ControllerExtensionForms extends Controller {
 		$filter = $this->request->get['filter'];
 		$telephone = $this->request->get['telephone'];
 		$data['leads'] = $this->model_extension_forms->getData($limit,$filter,$date,$telephone);
+//		print_r($data['leads']);
+//		exit;
 		$data_total = $this->model_extension_forms->getTotalData($filter,$date,$telephone);
 
 		$data['add'] = $this->url->link('sale/order/add', 'token=' . $this->session->data['token'], 'SSL');

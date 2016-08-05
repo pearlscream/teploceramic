@@ -36,8 +36,7 @@ class ModelExtensionForms extends Model {
 			$query = $this->db->query("SELECT *, REPLACE(REPLACE(REPLACE(REPLACE(telephone,'-',''),' ',''),')',''),'(','') as phone,COUNT(telephone) as treatment FROM `" . DB_PREFIX . "forms_data` GROUP BY telephone HAVING phone like '". $telephone ."%' ORDER BY `data_id` DESC");
 		}
 //		$query = $this->db->query("select * from `la_forms_data` where date_format(date, '%Y%m') = date_format(now(), '%Y%m')");
-
-
+		
 		$data = array();
 		foreach ($query->rows as $row) {
 			$data[] = array(
