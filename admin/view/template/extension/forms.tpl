@@ -51,7 +51,6 @@
             </div>
             <form action="#0" id="add-call" style="text-align: center">
                 <button id="add-call-show" class="btn btn-primary" style="margin: 5px;">Добавить звонок</button>
-                <input type="hidden" name="name" data-error="E-mail обязателен для заполнения!">
                 <div id="add-call-inputs" style="display: none">
                     <input class="form-control" style="width: 40%;display: inline-block" type="text"
                            placeholder="Номер телефона" name="telephone" class="mask"
@@ -59,6 +58,9 @@
                     <input class="form-control" style="width: 40%; display: inline-block" type="text"
                            placeholder="E-mail" name="email"
                            data-error="E-mail обязателен для заполнения!">
+                    <input class="form-control" style="width: 40%; display: inline-block" type="text"
+                           placeholder="Name" name="name"
+                           data-error="Введите имя">
                     <input class="btn-primary btn" type="submit" value="Добавить звонок">
                     <input type="hidden" value="call" name="form_id" class="form-control">
                 </div>

@@ -169,7 +169,7 @@ class ControllerModuleForms extends Controller {
 		$data['text_status'] = $this->language->get('text_status');
 		$data['text_comments'] = $this->language->get('text_comments');
 		$data['text_actions'] = $this->language->get('text_actions');
-		
+
 		$data['text_all'] = $this->language->get('text_all');
 
 		$data['text_no_results'] = $this->language->get('text_no_results');
@@ -203,7 +203,7 @@ class ControllerModuleForms extends Controller {
 
 		return $this->load->view('module/forms_view.tpl', $data);
 	}
-	
+
 
 	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'module/forms')) {

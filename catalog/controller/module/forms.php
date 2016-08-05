@@ -26,8 +26,8 @@ class ControllerModuleForms extends Controller {
 
 			$this->model_module_forms->addData($this->request->post);
 
-			$json['success'] = $this->request->post;
-//			$json['success'] = $this->language->get('text_success');
+//			$json['success'] = $this->request->post;
+			$json['success'] = $this->language->get('text_success');
 		}
 
 

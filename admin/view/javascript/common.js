@@ -156,8 +156,12 @@ $(document).ready(function() {
 			success: function (json) {
 				location.reload();
 			},
-			error: function () {
-				alert('ОШИБКА. Запись не добавлена :( ');
+			error: function (e) {
+				if(e['status'] != 200) {
+					alert('ОШИБКА. Запись не добавлена :( ');
+				} else {
+					location.reload();
+				}
 			}
 		});
 	});
