@@ -65,6 +65,9 @@
                         <input class="form-control" style="width: 40%; display: inline-block" type="text"
                         placeholder="E-mail" name="email"
                         data-error="E-mail обязателен для заполнения!">
+                      <input class="form-control" style="width: 40%; display: inline-block" type="text"
+                             placeholder="Name" name="name"
+                             data-error="Введите имя">
                         <input class="btn-primary btn" type="submit" value="Добавить звонок">
                         <input type="hidden" value="call" name="form_id" class="form-control">
                     </div>
